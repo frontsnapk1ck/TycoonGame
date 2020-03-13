@@ -1,5 +1,12 @@
 package buildings;
 
+/**
+ * Class dedicated to holdign the information for each of the {@link Building}s' 
+ *  upgrade informatoin. this will hold the level for the building and can be set 
+ *  with different max values in an exponetioal function 
+ * @author S38392
+ *
+ */
 public class Level {
 	
 	private int level;

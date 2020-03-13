@@ -1,5 +1,10 @@
 package buildings;
 
+/**
+ * locks down the avalibe inputs for building types. private class with STATIC FINAL vars.
+ * @author S38392
+ *
+ */
 public class BuildingType {
 	
 	public static final BuildingType LEMONADE_STAND = new BuildingType( "Lemonade Stand" );

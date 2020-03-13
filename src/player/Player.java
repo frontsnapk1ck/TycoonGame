@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 	
 	private Account account = new Account();
-	private buildings.Manager bManager = new buildings.Manager();
+	private buildings.GrandManager bManager = new buildings.GrandManager();
 	
 	public void startGame ()
 	{
