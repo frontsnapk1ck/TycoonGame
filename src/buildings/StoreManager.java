@@ -115,16 +115,23 @@ public class StoreManager {
 	/**
 	 * @return the {@link Building}s in this instance of {@link StoreManager}
 	 */
-	public ArrayList<Building> getBuildings() 
+	public ArrayList<Building> get() 
 	{
 		return buildings;
 	}
 	
+	/**
+	 * 
+	 * @return the {@link BuildingType} of this {@link StoreManager}
+	 */
 	public BuildingType getBT ()
 	{
 		return this.bT;
 	}
 
+	/**
+	 * @return if this {@link StoreManager} has the max number of buildigns is can handle
+	 */
 	public boolean maxed() 
 	{
 		return this.buildings.size() < this.maxBuildings;

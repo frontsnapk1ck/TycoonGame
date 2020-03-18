@@ -2,9 +2,15 @@ package player;
 
 import java.util.ArrayList;
 
+import buildings.Building;
+import buildings.BuildingType;
+import buildings.StoreManager;
+
 public class Player {
-	
+
+	/**{@link Account} for the player to hold loans and the current balance of the player*/
 	private Account account = new Account();
+	/**Manager for all the {@link Building}s this players owns*/
 	private buildings.GrandManager bManager = new buildings.GrandManager();
 	
 	public void startGame ()
@@ -14,11 +20,19 @@ public class Player {
 		this.bManager.addBuilding(0);
 	}
 
+	/**
+	 * 
+	 * @return the increase for all the {@link Building}s this {@link Player} owns
+	 */
 	public double getIncrease() 
 	{
 		return this.bManager.getIncrease();
 	}
 
+	/**
+	 * 
+	 * @param increase the amount of money to add to this {@link Player}'s account
+	 */
 	public void addBalance(double increase) 
 	{
 		this.account.addBal(increase);
@@ -27,33 +41,71 @@ public class Player {
 	/**
 	 * 
 	 * @param i index of the hashMap to return
-	 * @return ArrayList"Building" of all the buildings at the index
+	 * @return {@link ArrayList} filled with {@link StoreManager}s for all of the {@link BuildingType}s at the index
 	 */
-	public ArrayList<buildings.Building> getOnwedBuildings (int i)
+	public ArrayList<StoreManager> getSoreManagers (int i)
 	{
 		return this.bManager.getHash(i);
 	}
 
+	/**
+	 * creats list of {@link Building}s adds all buildings to that list reguardless of any upgrades on 
+	 * 	the {@link StoreManager} <br></br>
+	 * this will remove the multiplier on the {@link StoreManager}, and thus is not aplicalbe to any 
+	 * 	method in which it is important to have accurate monetary values.
+	 * 
+	 * @param index the index of the {@link BuildingType} to look up
+	 * @return list of all {@link Building}s for a {@link BuildingType}
+	 */
+	public ArrayList<Building> getOnwedBuildings (int index)
+	{
+		ArrayList<StoreManager> sMans = getSoreManagers(index);
+		ArrayList<Building> buildings = new ArrayList<Building>();
+		for (int i = 0; i< sMans.size(); i++)
+		{
+			buildings.addAll(sMans.get(i).get());
+		}
+		return buildings;
+	}
+
+	/**
+	 * 
+	 * @return the number of different types of buildings that are currently available to the player
+	 */
 	public int getNumTypes() 
 	{
 		return this.bManager.maxSize();
 	}
-
+	/**
+	 * 
+	 * @param 	i index of the {@link BuildingType} to get the name of
+	 * @return 	the name of the building type in a string form
+	 */
 	public String getTypeName(int i) 
 	{
 		return this.bManager.getTypeName(i);
 	}
-
+	/**
+	 * @return all the stock {@link Building}s in the Manager
+	 */
 	public ArrayList<buildings.Building> getStockBuildings() 
 	{
 		return this.bManager.getStock();
 	}
 
+	/**
+	 * 
+	 * @param buildingNum the index of the {@link Building} to add to ownedBuildings of this {@link Player}
+	 */
 	public void addBuilding(int buildingNum) 
 	{
 		this.bManager.addBuilding(buildingNum);
 	}
 
+	/**
+	 * 
+	 * @return the balance of this accoutnt
+	 */
 	public double getBalance() 
 	{
 		return this.account.getBal();
