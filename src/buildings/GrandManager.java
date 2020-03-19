@@ -16,7 +16,7 @@ public class GrandManager {
 	{
 		this.allBuildings = new ArrayList<Building>();
 		this.ownedBuildings = new HashMap<BuildingType, ArrayList<StoreManager>>();
-		this.allBuildings = new ArrayList<Building>();
+		this.buildingTypes = new ArrayList<BuildingType>();
 		
 		this.setAllBuildingTypes();
 		this.setAllBuildings ();
@@ -70,10 +70,11 @@ public class GrandManager {
 	 */
 	public void addBuilding (int i)
 	{
-		BuildingType bt = this.buildingTypes.get(i);
+		BuildingType bT = this.buildingTypes.get(i);
 		Building toAdd = this.allBuildings.get(i).clone();
-		toAdd.setId("" + bt + this.ownedBuildings.get(bt).size());
-		StoreManager sMan = this.get (bt);
+		checkHashArrray(bT);
+		toAdd.setId("" + bT + this.ownedBuildings.get(bT).size());
+		StoreManager sMan = this.get (bT);
 		sMan.add(toAdd);
 	}
 

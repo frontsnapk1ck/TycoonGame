@@ -139,7 +139,7 @@ public class StoreManager {
 
 	/**
 	 * 
-	 * @return the size of the {@link ArrayList} of {@link Building} this instance of 
+	 * @return the number of {@link Building}s the {@link ArrayList} of {@link Building}s this instance of 
 	 * 	{@link StoreManager} has
 	 */
 	public int size() 

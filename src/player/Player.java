@@ -15,9 +15,7 @@ public class Player {
 	
 	public void startGame ()
 	{
-		
 		this.account.addBal(1000);
-		this.bManager.addBuilding(0);
 	}
 
 	/**
@@ -57,13 +55,18 @@ public class Player {
 	 * @param index the index of the {@link BuildingType} to look up
 	 * @return list of all {@link Building}s for a {@link BuildingType}
 	 */
-	public ArrayList<Building> getOnwedBuildings (int index)
+	public ArrayList<Building> getOwnedBuildings (int index)
 	{
 		ArrayList<StoreManager> sMans = getSoreManagers(index);
 		ArrayList<Building> buildings = new ArrayList<Building>();
-		for (int i = 0; i< sMans.size(); i++)
+		if (sMans != null)
 		{
-			buildings.addAll(sMans.get(i).get());
+			for (int i = 0; i< sMans.size(); i++)
+			{
+				buildings.addAll(sMans.get(i).get());
+			}
+			if (buildings.size() == 0)
+				return null;
 		}
 		return buildings;
 	}
@@ -99,7 +102,18 @@ public class Player {
 	 */
 	public void addBuilding(int buildingNum) 
 	{
-		this.bManager.addBuilding(buildingNum);
+		if (bManager.canAddBuilding(buildingNum))
+			this.bManager.addBuilding(buildingNum);
+	}
+
+	/**
+	 * 
+	 * @param i index of the {@link Building} to check if availible to add
+	 * @return if the {@link Player} can add a {@link Building} 
+	 */
+	public boolean canAddBuilding (int i)
+	{
+		return this.bManager.canAddBuilding(i);
 	}
 
 	/**

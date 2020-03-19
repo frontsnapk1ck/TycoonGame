@@ -4,16 +4,22 @@ import io.Input;
 import player.Player;
 
 abstract class GameFramework{
-	
+	/**if the game is currently being played */
 	protected boolean playing = true;
+	/**the games player */
 	protected Player player;
-	protected Menu menu;
+	/**
+	 * the menu for the game <br></br>
+	 * used to display items for the game 
+	 */
+	protected static Menu menu;
+	/**the method of input the player uses */
 	protected Input input;
 	
 	protected void setupGame() 
 	{
 		this.player = new Player();
-		this.menu = new Menu();
+		menu = new Menu();
 		this.input = new Input();
 		
 		this.player.startGame();

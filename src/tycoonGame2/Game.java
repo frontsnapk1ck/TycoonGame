@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * TODO		throw error for invalid numbers
+ * TODO		fix the numbering -- you have to go through store manager to upgrade a builgind
  * @author	S38392
  *
  */
@@ -40,31 +41,43 @@ public class Game extends GameFramework {
 
 	private String getStats() 
 	{
-		String 	stats = "$" + fixBal(player.getBalance());
-		return 	stats;
+		return "$" + fixBal(player.getBalance());
 	}
 
 	private void operate(int m) 
 	{
 		if (m == 1)
 		{
-			menu.list(	menu.getOwnedBuilding(this.player)	);
+			Menu.list(	menu.getOwnedBuilding(this.player));
 		}
 		if (m == 2)
 		{
-			menu.list(	menu.getStockBuilings(this.player)	);
-			
+			Menu.list(	menu.getStockBuilings(this.player));
+			Menu.out(	"0\tend");
+			Menu.line();
+
 			int buildingNum = input.getUserInt();
 			operateBuy(buildingNum);
 		}
 		if (m == 3)
 		{
-			menu.list(	menu.getClasses(this.player)		);
-			menu.out("0\tend");
-			menu.line();
+			Menu.list(	menu.getClasses(this.player));
+			Menu.out(	"0\tend");
+			Menu.line();
 			
 			int classNum = input.getUserInt();
 			operateUp(classNum);
+		}
+		if (m == 4)
+		{
+			menu.list(menu.getClasses(this.player));
+
+			int classNum = input.getUserInt("Building Type");
+			operateStoreManager(classNum);
+		}
+		if (m == 5)
+		{
+
 		}
 		if (m == 9)
 		{
@@ -79,6 +92,39 @@ public class Game extends GameFramework {
 		}
 		menu.waitUntilIn();
 		
+	}
+
+	private void operateStoreManager(int classNum) 
+	{
+		if (classNum == 0)
+			return;
+		classNum--;
+		selectStoreManager(classNum);
+	}
+
+	private void selectStoreManager(int classNum) 
+	{
+		ArrayList<String> list  = menu.getSMansWithStats( this.player , classNum );
+		Menu.list(list);
+		Menu.out("0\tend");
+		Menu.line();
+
+		int in = input.getUserInt("Store Manager: ");
+		if (in == 0)
+			return;
+		viewStoreManager ( classNum , in );
+	}
+
+	private void viewStoreManager(int classNum, int in) 
+	{
+		menu.storeManager();
+		int choice = input.getUserInt("> ");
+		operateSingleStoreManager( classNum , in , choice );
+	}
+
+	private void operateSingleStoreManager(int classNum, int in, int choice) 
+	{
+		//TODO
 	}
 
 	private void operateUp(int in) 
@@ -98,7 +144,9 @@ public class Game extends GameFramework {
 			return;
 		}
 		in --;
-		if (player.validWithdraw(player.getCost(in)))
+		boolean validBuy = 	player.validWithdraw(player.getCost(in)) && 
+							player.canAddBuilding(in);			
+		if (validBuy)
 		{
 			player.withdraw(player.getCost(in));
 			addBuilding (in);
@@ -118,9 +166,9 @@ public class Game extends GameFramework {
 	private void selectUpgrade (int m) 
 	{
 		ArrayList<String> list = menu.getUpragesWithCosts(this.player , m);
-		menu.list(list);
-		menu.out("0\tend");
-		menu.line();
+		Menu.list(list);
+		Menu.out("0\tend");
+		Menu.line();
 		
 		int in = input.getUserInt();
 		if (in == 0)
@@ -132,11 +180,11 @@ public class Game extends GameFramework {
 	{
 		in --;
 		
-		double cost = this.player.getOnwedBuildings(m).get(in).getUpgradeCost();
+		double cost = this.player.getOwnedBuildings(m).get(in).getUpgradeCost();
 		if (this.player.validWithdraw(cost))
 		{
 			this.player.withdraw(cost);
-			this.player.getOnwedBuildings(m).get(in).addLevel();
+			this.player.getOwnedBuildings(m).get(in).addLevel();
 		}
 	}
 
