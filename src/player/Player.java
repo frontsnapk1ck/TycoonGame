@@ -144,5 +144,16 @@ public class Player {
 	{
 		return this.bManager.getCost(in);
 	}
+
+	/**
+	 * 
+	 * @param classNum the index of the {@link BuildingType} to look for {@link StoreManager}s in
+	 * @param index the index of the {@link StoreManager} in the {@link java.util.HashMap}
+	 * @return {@link StoreManager} of the type at <code>classNum</code> at <code>index</code>
+	 */
+	public StoreManager getSoreManager(int classNum, int index) 
+	{
+		return this.getSoreManagers(classNum).get(index);
+	}
 	
 }

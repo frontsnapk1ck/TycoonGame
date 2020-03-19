@@ -1,5 +1,6 @@
 package io;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Input {
@@ -48,31 +49,150 @@ public class Input {
 	//			Int
 	//======================================================
 
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * accepts all {@link Integer}s <br></br>
+	 * runs a TRY_CATCH	
+	 * @return the {@link Integer} the user inputed
+	 */
 	public int getUserInt()
 	{
-		return this.handleGettingUserInt("", "Invalid Number");
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		return this.handleGettingUserInt("", "Invalid Number" , intList);
+	}
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * runs a TRY_CATCH	
+	 * @param acceptable the desired {@link Integer}
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt(int acceptable)
+	{
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		intList.add(acceptable);
+		return this.handleGettingUserInt("", "Invalid Number", intList);
+	}
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * runs a TRY_CATCH	
+	 * @param intList the desired {@link Integer}s -- returns <code>true</code> if any one of the numbers is met
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt (ArrayList<Integer> intList)
+	{
+		return this.handleGettingUserInt( "" , "Invalid Number", intList);
 	}
 
+	//=======================================================
+	//			Int -- prompt
+	//======================================================
+
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default error upon entry failure to satisfy requirements <br></br>
+	 * Accepts all {@link Integer}s
+	 * runs a TRY_CATCH	
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @return the {@link Integer} the user inputed
+	 */
 	public int getUserInt(String prompt) 
 	{
-		return this.handleGettingUserInt(prompt, "Invalid Number");
-	}
-
-	public int getUserInt(String prompt , String error)
-	{
-		return this.handleGettingUserInt(prompt, error);
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		return this.handleGettingUserInt(prompt, "Invalid Number" , intList);
 	}
 
 	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default error upon entry failure to satisfy requirements <br></br>
+	 * runs a TRY_CATCH
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @param acceptable the desired {@link Integer}
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt( String prompt , int acceptable)
+	{
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		intList.add(acceptable);
+		return this.handleGettingUserInt( prompt , "Invalid Number" , intList );
+	}
+
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs default error upon entry failure to satisfy requirements <br></br>
+	 * runs a TRY_CATCH
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @param intList the desired {@link Integer}s -- returns <code>true</code> if any one of the numbers is met
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt ( String prompt , ArrayList<Integer> intList)
+	{
+		return this.handleGettingUserInt( prompt , "Invalid Number" , intList );
+	}
+
+	//=======================================================
+	//			Int -- prompt && error
+	//======================================================
+
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * Accepts all {@link Integer}s
+	 * runs a TRY_CATCH	
 	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
 	 * @param error the message to be shown to the user upon every failed input attempt
 	 * @return the {@link Integer} the user inputed
 	 */
-	private int handleGettingUserInt(String prompt , String error)
+	public int getUserInt(String prompt , String error)
+	{
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		return this.handleGettingUserInt( prompt , error , intList );
+	}
+
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs a TRY_CATCH
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @param error the message to be shown to the user upon every failed input attempt
+	 * @param acceptable the desired {@link Integer}
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt( String prompt , String error , int acceptable)
+	{
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		intList.add(acceptable);
+		return this.handleGettingUserInt(prompt, error, intList);
+	}
+
+	/**
+	 * runs a program that gets an {@link Integer} input by the user and dosen't return untill the user inputs a {@link Integer} <br></br>
+	 * runs a TRY_CATCH
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @param error the message to be shown to the user upon every failed input attempt
+	 * @param intList the desired {@link Integer}s -- returns <code>true</code> if any one of the numbers is met
+	 * @return the {@link Integer} the user inputed
+	 */
+	public int getUserInt( String prompt , String error , ArrayList<Integer> intList)
+	{
+		return this.handleGettingUserInt(prompt, error, intList);
+	}
+
+	//=======================================================
+	//			Int -- handler
+	//======================================================
+
+	/**
+	 * @param prompt the messgage to be displayed to the user upon every attempt to input an integer
+	 * @param error the message to be shown to the user upon every failed input attempt
+	 * @param intList the list of integers acceptable to use
+	 * @return the {@link Integer} the user inputed
+	 */
+	private int handleGettingUserInt(String prompt , String error , ArrayList<Integer> intList)
 	{
 		System.out.print(prompt);
 		String 	in = scanner.nextLine();
-		while (!validNum(in))
+		while (!validNum(in) || !inListInt(intList , in))
 		{
 			System.err.println( error );
 			System.out.print( prompt);
@@ -86,38 +206,145 @@ public class Input {
 	//======================================================
 
 	/**
-	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided
-	 * @return single uppercase letter
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * accepts all {@link Character}s
+	 * @return single uppercase {@link Character} input by the User
 	 */
 	public char getUserChar()
 	{
-		return this.handleGettingUserChar( "", "Invalid Char" );
+		ArrayList<Character> charList = new ArrayList<Character>();
+		return this.handleGettingUserChar( "", "Invalid Char" , charList );
 	}
-	
+
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * @param acceptable the desired {@link Character}
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar(char acceptable)
+	{
+		ArrayList<Character> charList = new ArrayList<Character>();
+		charList.add(acceptable);
+		return this.handleGettingUserChar( "" , "Invalid Char" , charList);
+	}
+
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default prompts and erros upon entry request and entry failure to satisfy requirements <br></br>
+	 * @param charList the desired {@link Character}s -- returns <code>true</code> if one of the {@link Character}s are met
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar (ArrayList<Character> charList)
+	{
+		return this.handleGettingUserChar( "" , "Invalid Char" , charList);
+	}
+
+	//=======================================================
+	//			CHAR -- prompt
+	//======================================================
+
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default erros upon entry failure to satisfy requirements <br></br>
+	 * accepts all {@link Character}s
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @return single uppercase {@link Character} input by the User
+	 */
 	public char getUserChar(String prompt)
 	{
-		return this.handleGettingUserChar( prompt, "Invalid Char" );
+		ArrayList<Character> charList = new ArrayList<Character>();
+		return this.handleGettingUserChar( prompt , "Invalid Char" , charList );
 	}
-	
-	public char getUserChar(String prompt, String error)
+
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default erros upon entry failure to satisfy requirements
+	 * @param acceptable the desired {@link Character}
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar ( String prompt , char acceptable)
 	{
-		return this.handleGettingUserChar( prompt, error );
+		ArrayList<Character> charList = new ArrayList<Character>();
+		charList.add(acceptable);
+		return this.handleGettingUserChar(prompt, "Invalid Char", charList);
 	}
+
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * runs default erros upon entry failure to satisfy requirements
+	 * @param charList the desired {@link Character}s -- returns <code>true</code> if one of the {@link Character}s are met
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar ( String prompt , ArrayList<Character> charList)
+	{
+		return this.handleGettingUserChar(prompt, "Invalid Char", charList);
+	}
+
+	//=======================================================
+	//			CHAR -- prompt && error
+	//======================================================
+	
+	/**
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * accepts all {@link Character}s
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @param error the error to display to the user upon the entrry not meeting requirements
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar( String prompt , String error )
+	{		
+		ArrayList<Character> charList = new ArrayList<Character>();
+		return this.handleGettingUserChar( prompt, error , charList);
+	}
+
+	/** 
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @param error the error to display to the user upon the entrry not meeting requirements
+	 * @param acceptable the desired {@link Character}
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar( String prompt , String error , char acceptable)
+	{
+		ArrayList<Character> charList = new ArrayList<Character>();
+		charList.add(acceptable);
+		return this.handleGettingUserChar(prompt, error, charList);
+	}
+
+	/** 
+	 * runs a program that gets a letter and doesnt do so untill a valid charecter is provided <br></br>
+	 * @param prompt the prompt to be used upon request for user entry
+	 * @param error the error to display to the user upon the entrry not meeting requirements
+	 * @param charList the desired {@link Character}s -- returns <code>true</code> if one of the {@link Character}s are met
+	 * @return single uppercase {@link Character} input by the User
+	 */
+	public char getUserChar ( String prompt , String error , ArrayList<Character> charList )
+	{
+		return this.handleGettingUserChar(prompt, error, charList);
+	}
+
+	//=======================================================
+	//			CHAR -- handler
+	//======================================================
 	
 	/**
 	 * 
 	 * @param prompt the message to be shown to the user on every attempt
 	 * @param error the message to be shown to the user upon every failed input attempt
-	 * @return the {@link Char} the user inputed 
+	 * @return single uppercase {@link Character} input by the User
 	 */
-	private char handleGettingUserChar(String prompt, String error)
+	private char handleGettingUserChar( String prompt , String error , ArrayList<Character> charList )
 	{
 		System.out.print(prompt);
 		String in = scanner.nextLine();
 		in = in.toUpperCase();
 
 		boolean valid = onlyLetters(in) && in.length() <=1 && in.length() != 0;
-		while (!valid)
+		while (!valid && !inListChar(charList, in))
 		{
 			System.err.println( error );
 			System.out.print(prompt);
@@ -129,16 +356,40 @@ public class Input {
 	}
 
 	//====================================================
-	//			Utility
+	//			Wait
 	//====================================================
 
-	/** 
-	 * waits until the user presses the Enter key
+	/**
+	 * waits for the user to hit enter before continueing the program <br>
+	 * </br>
+	 * displays default prompt of "hit enter"
 	 */
-	public void next() 
+	public void next()
 	{
+		handleNext("hit enter ");
+	}
+
+	/**
+	 * waits for the user to hit enter before continueing the program
+	 * @param out the prompt to be displayed to the user
+	 */
+	public void next (String out)
+	{
+		handleNext(out);
+	}
+
+	/**
+	 * waits for the user to hit enter before continueing the program
+	 * @param out the prompt to be displayed to the user
+	 */
+	private void handleNext(String out) 
+	{
+		System.out.println(out);
 		scanner.nextLine();
 	}
+	//====================================================
+	//			Utility
+	//====================================================
 
 	/**
 	 * shutsdown this calss by closing the {@link Scanner} then setting it to <code> Null </code>
@@ -194,4 +445,38 @@ public class Input {
 		}
 		return numLetters == s.length() -1;
 	}
+
+	//===========================================
+	//		Checkers -- In List
+	//===========================================
+
+	private boolean inListInt(ArrayList<Integer> intList, String in) 
+	{
+		int intIn = Integer.parseInt(in);
+		if (intList == null || intList.size() == 0)
+		{
+			return true;
+		}
+		for (int i = 0; i < intList.size(); i++)
+		{
+			if (intIn == intList.get(i))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean inListChar(ArrayList<Character> charList, String in) 
+	{
+		if (charList == null || charList.size() == 0)
+			return true;
+		for (int i = 0; i < charList.size(); i ++)
+		{
+			if (in.toUpperCase().charAt(0) == charList.get(i))
+				return true;
+		}
+		return false;
+	}
+
 }

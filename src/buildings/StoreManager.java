@@ -79,6 +79,16 @@ public class StoreManager {
 		this.upkeepCost = this.baseUpkeepCost + upgradeCost;
 	}	
 
+	private double calculateUpkeep(int i) 
+	{
+		double upgradeCost = Math.pow(2, this.upgradeCount) + 1;
+		if (upgradeCost == 1)
+			upgradeCost = 0;
+		else if (upgradeCost < 10)
+			upgradeCost = 10;
+		return this.baseUpkeepCost + upgradeCost;
+	}
+
 	/**
 	 * @return the multiplyer upon the {@link Building}s in this instance of {@link StoreManager}
 	 */
@@ -103,6 +113,11 @@ public class StoreManager {
 		calculateUpkeep();
 		return upkeepCost;
 	}
+	
+	public double getUpkeepCost(int i) 
+	{
+		return calculateUpkeep(1);
+	}
 
 	/**
 	 * @return the number of upgrades on this instance of {@link StoreManager}
@@ -118,6 +133,16 @@ public class StoreManager {
 	public ArrayList<Building> get() 
 	{
 		return buildings;
+	}
+
+	/**
+	 * 
+	 * @param i index of the {@link Building} to return
+	 * @return {@link Building} at a given <code>index</code>
+	 */
+	public Building get(int i)
+	{
+		return this.buildings.get(i);
 	}
 	
 	/**
@@ -161,6 +186,30 @@ public class StoreManager {
 			increase += this.buildings.get(i).getIncrease();
 		}
 		return increase;
+	}
+
+	//====================================================	
+	//				Display
+	//====================================================
+
+	@Override public String toString() 
+	{
+		String out = "Store Manager";
+		out += "\tmultiplyer: " + this.multiplyer;
+		out += "\tBuildings:" + this.size() + "/" + this.maxed();
+		out += "\tUpkeep Cost: " + this.getUpkeepCost();
+		out += "\tNumber of Upgrades: " + this.upgradeCount;
+		out += "\tNext Upgrade Cost: $" + this.getUpkeepCost(1);
+		return out;
+	}
+
+	public String stats() 
+	{
+		String out = "Store Manager";
+		out += "\tmultiplyer: " + this.multiplyer;
+		out += "\tBuildings:" + this.size() + "/" + this.maxed();
+		out += "\tUpkeep Cost: " + this.getUpkeepCost();
+		return out;
 	}
 
 }

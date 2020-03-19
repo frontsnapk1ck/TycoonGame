@@ -24,4 +24,10 @@ abstract class GameFramework{
 		
 		this.player.startGame();
 	}
+
+	protected void message(String message) 
+	{
+		if (message != null)
+			System.out.println(message);
+	}
 }

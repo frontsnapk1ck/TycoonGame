@@ -101,7 +101,7 @@ public class GrandManager {
 	 * @param i index of the requested {@link StoreManager}
 	 * @return {@link StoreManager} at the requested index of <i>ownedBuildings</i>
 	 */
-	private StoreManager get(BuildingType bT , int i) 
+	public StoreManager get(BuildingType bT , int i) 
 	{
 		if (i < get(bT).size())
 			return this.ownedBuildings.get(bT).get(i);

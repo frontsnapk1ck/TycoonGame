@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Game extends GameFramework {
 	
 	private static Game game;
+	private static String message;
 
 	public static void main(String[] args) 
 	{
@@ -30,13 +31,23 @@ public class Game extends GameFramework {
 	{
 		while (playing)
 		{
+			Menu.line(10);
+			message(message);
+			message = null;
+			Menu.out(this.getStats());
 			mainMenu();
 		}
 	}
 
 	private void mainMenu() 
 	{
-		operate(menu.main(getStats()));
+		ArrayList<Integer> intList = numbers1ThruX(4);
+		intList.add(0);
+		intList.add(9);
+
+		Menu.main();
+		int in = input.getUserInt("> " , intList);
+		operate(in);
 	}
 
 	private String getStats() 
@@ -45,52 +56,51 @@ public class Game extends GameFramework {
 	}
 
 	private void operate(int m) 
-	{
+	{		
 		if (m == 1)
 		{
-			Menu.list(	menu.getOwnedBuilding(this.player));
+			Menu.out( menu.getOwnedBuilding( this.player ));
 		}
-		if (m == 2)
+		else if (m == 2)
 		{
-			Menu.list(	menu.getStockBuilings(this.player));
-			Menu.out(	"0\tend");
+			Menu.out( menu.getStockBuilings( this.player ));
+			Menu.line();
+			Menu.out( "0\tend");
 			Menu.line();
 
-			int buildingNum = input.getUserInt();
+			ArrayList<Integer> intList = numbers1ThruX(this.player.getNumTypes());
+			int buildingNum = input.getUserInt( "> " , intList);
 			operateBuy(buildingNum);
 		}
-		if (m == 3)
+		else if (m == 3)
 		{
-			Menu.list(	menu.getClasses(this.player));
-			Menu.out(	"0\tend");
+			Menu.out( menu.getAllClasses( this.player ));
 			Menu.line();
-			
-			int classNum = input.getUserInt();
-			operateUp(classNum);
-		}
-		if (m == 4)
-		{
-			menu.list(menu.getClasses(this.player));
+			Menu.out( "0\tback");
+			Menu.line();
 
-			int classNum = input.getUserInt("Building Type");
+			ArrayList<Integer> intList = numbers1ThruX(this.player.getNumTypes());
+			intList.add(0);
+			int classNum = input.getUserInt( "> "  , intList );
 			operateStoreManager(classNum);
+			return;
 		}
-		if (m == 5)
+		else if (m == 4)
 		{
-
+			System.err.println( "Not Implemented" );
 		}
-		if (m == 9)
+		else if (m == 9)
 		{
 			nextDay();
 			return;
 		}
-		if (m == 0)
+		else if (m == 0)
 		{
 			this.playing = false;
 			game.destroy();
 			return;
 		}
-		menu.waitUntilIn();
+		input.next();
 		
 	}
 
@@ -105,26 +115,57 @@ public class Game extends GameFramework {
 	private void selectStoreManager(int classNum) 
 	{
 		ArrayList<String> list  = menu.getSMansWithStats( this.player , classNum );
-		Menu.list(list);
-		Menu.out("0\tend");
+		ArrayList<Integer> intList = numbers1ThruX(list.size());
+		intList.add(0);
+		Menu.out(list);
+		Menu.out("0\tback");
 		Menu.line();
 
-		int in = input.getUserInt("Store Manager: ");
+		int in = input.getUserInt("> " , intList);
 		if (in == 0)
+		{
+			operate( 3 );
 			return;
+		}
+		in --;
 		viewStoreManager ( classNum , in );
 	}
 
 	private void viewStoreManager(int classNum, int in) 
 	{
+		String sMan = menu.viewStoreManager(this.player, classNum, in);
+		if (sMan == null)
+		{
+			selectStoreManager(classNum);
+			return;
+		}
+		Menu.out(sMan);
 		menu.storeManager();
-		int choice = input.getUserInt("> ");
+		ArrayList<Integer> intList = numbers1ThruX(2);
+		intList.add(9);
+		intList.add(0);
+		int choice = input.getUserInt("> ", intList);
 		operateSingleStoreManager( classNum , in , choice );
 	}
 
 	private void operateSingleStoreManager(int classNum, int in, int choice) 
 	{
-		//TODO
+		if ( choice == 1 )
+		{
+			menu.listStoreManagerUpgrades( classNum , in );
+		}
+		else if ( choice == 2 )
+		{
+			menu.getOwnedBuilding(player, m)
+		}
+		else if (choice == 9)
+		{
+
+		}
+		else if (choice == 0)
+		{
+			return;
+		}
 	}
 
 	private void operateUp(int in) 
@@ -151,6 +192,12 @@ public class Game extends GameFramework {
 			player.withdraw(player.getCost(in));
 			addBuilding (in);
 		}
+		else if (!player.validWithdraw(player.getCost(in)))
+			message = "you could not buy that building because you are broke";
+		else if (!player.canAddBuilding(in))
+			message = "you could not buy that building becuase there isnt an availble Store Manager";
+		else 
+			message = "well this is awkward idk why you cant buy that building";
 	}
 
 	private void nextDay() 
@@ -166,7 +213,7 @@ public class Game extends GameFramework {
 	private void selectUpgrade (int m) 
 	{
 		ArrayList<String> list = menu.getUpragesWithCosts(this.player , m);
-		Menu.list(list);
+		Menu.out(list);
 		Menu.out("0\tend");
 		Menu.line();
 		
@@ -209,5 +256,17 @@ public class Game extends GameFramework {
 			return "" + bal + "0";
 		}
 		return "" + ((int) bal * 100)/100;
+	}
+
+	//=============================================
+	//				Utility
+	//=============================================
+
+	private ArrayList<Integer> numbers1ThruX(int max) 
+	{
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		for (int i = 1; i <= max; i++)
+			intList.add(i);
+		return intList;
 	}
 }
