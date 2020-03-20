@@ -29,7 +29,7 @@ public class Building {
 	/**
 	 * @note <h1> DO NOT USE THIS CALL</h1>
 	 */
-	public Building (	BuildingType bT , String id , int maxLevel , 
+	private Building (	BuildingType bT , String id , int maxLevel , 
 						double cost , double increace	)
 	{
 		this.id = id;
@@ -145,9 +145,9 @@ public class Building {
 	/**
 	 *  @return a clone of the building
 	 */
-	public Building clone ()
+	public Building clone (String id)
 	{
-		return new Building(this.bT , this.id , this.level.getMaxLevel() , this.cost , this.increase);
+		return new Building(this.bT , id , this.level.getMaxLevel() , this.cost , this.increase);
 	}
 	
 	/**

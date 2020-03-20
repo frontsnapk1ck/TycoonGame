@@ -59,22 +59,23 @@ public class GrandManager {
 	public boolean canAddBuilding (int i)
 	{
 		BuildingType bt = this.buildingTypes.get(i);
-		StoreManager sMan = this.get (bt);
+		StoreManager sMan = this.getFirstSMan (bt);
 		return sMan != null;
 	}
 	
 	/**
-	 * 
+	 * adds a {@link Building} at a given tindex to the first open index in a {@link StoreManager}<br></br>
+	 * this method calls <code>checkHashArray</code> which will make a new {@link ArrayList} in the {@link HashMap}
 	 * @param i index of the building in the list of all {@link Building}s to add to 
 	 * 			the list of <i>ownedBuildings</i>
 	 */
 	public void addBuilding (int i)
 	{
 		BuildingType bT = this.buildingTypes.get(i);
-		Building toAdd = this.allBuildings.get(i).clone();
+		String id = bT + " " + this.ownedBuildings.get(bT).size();
+		Building toAdd = this.allBuildings.get(i).clone(id);
 		checkHashArrray(bT);
-		toAdd.setId("" + bT + this.ownedBuildings.get(bT).size());
-		StoreManager sMan = this.get (bT);
+		StoreManager sMan = this.getFirstSMan (bT);
 		sMan.add(toAdd);
 	}
 
@@ -84,12 +85,14 @@ public class GrandManager {
 	 * @return the first open {@link StoreManager} if there is one, otherwise returns
 	 * 					<strong><code>null</code></strong>
 	 */
-	private StoreManager get(BuildingType bT) 
+	private StoreManager getFirstSMan(BuildingType bT) 
 	{
-		for (int i = 0; i < ownedBuildings.size(); i++)
+		if (ownedBuildings.get(bT) == null)
+			return null;
+		for (int i = 0; i < ownedBuildings.get(bT).size(); i++)
 		{
 			StoreManager sMan = ownedBuildings.get(bT).get(i);
-			if (sMan != null && !sMan.maxed())
+			if ( !sMan.maxed() )
 					return sMan;
 		}
 		return null;
@@ -103,7 +106,7 @@ public class GrandManager {
 	 */
 	public StoreManager get(BuildingType bT , int i) 
 	{
-		if (i < get(bT).size())
+		if (i < getFirstSMan(bT).size())
 			return this.ownedBuildings.get(bT).get(i);
 		return null;
 	}
@@ -273,12 +276,45 @@ public class GrandManager {
 
 	/**
 	 * 
-	 * @param in the inde of the {@link Building} to get the cost of 
+	 * @param in the index of the {@link Building} to get the cost of 
 	 * @return the cost of the {@link Building} at the given Index
 	 */
 	public double getCost(int in) 
 	{
 		return this.allBuildings.get(in).getCost();
+	}
+
+	/**
+	 * creates a new {@link StoreManager} and adds them to the <code>ownedBuildings</code> of the player <br></br>
+	 * this method calls <code>checkHashArray</code> which will make a new {@link ArrayList} in the {@link HashMap}
+	 * @param classNum the index of the {@link BuildingType} to add the {@link StoreManager} to
+	 */
+	public void addSMan(int classNum) 
+	{
+		BuildingType bT = buildingTypes.get(classNum);
+		StoreManager sMan = new StoreManager(bT);
+		checkHashArrray(bT);
+		this.ownedBuildings.get(bT).add(sMan);
+	}
+
+	/**
+	 * 
+	 * @param classNum the undex of the {@link BuildingType} to search for in the {@link HashMap}
+	 * @param index the index of the {@link StoreManager} in the {@link HashMap} of {@link StoreManager}s
+	 * @param building the index of the {@link Building} in the {@link ArrayList} of {@link Building}s stored in each {@link StoreManager}
+	 * @return
+	 */
+	public Building getBuilding(int classNum, int index, int building) 
+	{
+		BuildingType bT = buildingTypes.get(classNum);
+		StoreManager sMan = this.ownedBuildings.get(bT).get(index);
+		return sMan.get(building);
+	}
+
+	public double getBuildingUpgradeCost(int classNum, int in, int building) 
+	{
+		BuildingType bT = buildingTypes.get(classNum);
+		return this.ownedBuildings.get(bT).get(in).get(building).getUpgradeCost();
 	}
 
 }

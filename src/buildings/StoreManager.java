@@ -13,6 +13,8 @@ import java.util.ArrayList;
  *
  */
 public class StoreManager {
+	/**the cost to buy a {@link StoreManager} */
+	public static final double COST = 100;
 	/**the multiplyer on the income this building owns*/
 	private double 	multiplyer;
 	/**the max number of buildings this maanger can hold*/
@@ -34,19 +36,18 @@ public class StoreManager {
 	public StoreManager (BuildingType bT)
 	{
 		this.bT = bT;
-		this.multiplyer = 	1;
+		this.multiplyer = 1;
 		this.maxBuildings = 10;
-		this.baseUpkeepCost=5;
-		this.upgradeCount =	0;
-		this.buildings = 	new ArrayList<Building>();
+		this.baseUpkeepCost= 5;
+		this.upgradeCount = 0;
+		this.buildings = new ArrayList<Building>();
 		
 		this.upkeepCost = baseUpkeepCost;
 	}
 	
 	public void add(Building b)
 	{
-		if (b.getBuildingType() == this.bT)
-			this.buildings.add(b);
+		this.buildings.add(b);
 	}
 	
 	/**
@@ -79,14 +80,20 @@ public class StoreManager {
 		this.upkeepCost = this.baseUpkeepCost + upgradeCost;
 	}	
 
+	/**
+	 * 
+	 * @param i number of levels to calculate up
+	 * @return the cost to upgrade
+	 */
 	private double calculateUpkeep(int i) 
 	{
-		double upgradeCost = Math.pow(2, this.upgradeCount) + 1;
+		double upgradeCost = Math.pow(2, this.upgradeCount + i);
 		if (upgradeCost == 1)
 			upgradeCost = 0;
 		else if (upgradeCost < 10)
 			upgradeCost = 10;
-		return this.baseUpkeepCost + upgradeCost;
+		double cost = this.baseUpkeepCost + upgradeCost;
+		return cost * 10;
 	}
 
 	/**
@@ -159,7 +166,7 @@ public class StoreManager {
 	 */
 	public boolean maxed() 
 	{
-		return this.buildings.size() < this.maxBuildings;
+		return this.buildings.size() == this.maxBuildings;
 	}
 
 	/**
@@ -196,7 +203,7 @@ public class StoreManager {
 	{
 		String out = "Store Manager";
 		out += "\tmultiplyer: " + this.multiplyer;
-		out += "\tBuildings:" + this.size() + "/" + this.maxed();
+		out += "\tBuildings: " + this.size() + "/" + this.maxBuildings;
 		out += "\tUpkeep Cost: " + this.getUpkeepCost();
 		out += "\tNumber of Upgrades: " + this.upgradeCount;
 		out += "\tNext Upgrade Cost: $" + this.getUpkeepCost(1);
@@ -207,7 +214,7 @@ public class StoreManager {
 	{
 		String out = "Store Manager";
 		out += "\tmultiplyer: " + this.multiplyer;
-		out += "\tBuildings:" + this.size() + "/" + this.maxed();
+		out += "\tBuildings: " + this.size() + "/" + this.maxBuildings;
 		out += "\tUpkeep Cost: " + this.getUpkeepCost();
 		return out;
 	}

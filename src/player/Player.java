@@ -41,7 +41,7 @@ public class Player {
 	 * @param i index of the hashMap to return
 	 * @return {@link ArrayList} filled with {@link StoreManager}s for all of the {@link BuildingType}s at the index
 	 */
-	public ArrayList<StoreManager> getSoreManagers (int i)
+	public ArrayList<StoreManager> getSMans (int i)
 	{
 		return this.bManager.getHash(i);
 	}
@@ -57,7 +57,7 @@ public class Player {
 	 */
 	public ArrayList<Building> getOwnedBuildings (int index)
 	{
-		ArrayList<StoreManager> sMans = getSoreManagers(index);
+		ArrayList<StoreManager> sMans = getSMans(index);
 		ArrayList<Building> buildings = new ArrayList<Building>();
 		if (sMans != null)
 		{
@@ -151,9 +151,53 @@ public class Player {
 	 * @param index the index of the {@link StoreManager} in the {@link java.util.HashMap}
 	 * @return {@link StoreManager} of the type at <code>classNum</code> at <code>index</code>
 	 */
-	public StoreManager getSoreManager(int classNum, int index) 
+	public StoreManager getSMan(int classNum, int index) 
 	{
-		return this.getSoreManagers(classNum).get(index);
+		return this.getSMans(classNum).get(index);
+	}
+
+	/**
+	 * 
+	 * @return the <code>cost</code> of a {@link StoreManager}
+	 */
+	public double getSManCost() 
+	{
+		return StoreManager.COST;
+	}
+
+	public void addSMan(int classNum) 
+	{
+		bManager.addSMan (classNum);
+	}
+
+	public Building getBuilding(int classNum, int index , int building) 
+	{
+		return bManager.getBuilding(classNum , index , building);
+	}
+
+	public void upgradeBuilding(int classNum, int in, int building , String message) 
+	{
+		if (validWithdraw(bManager.getBuilding(classNum, in, building).getUpgradeCost()))
+		{
+			double upgradeCost = bManager.getBuildingUpgradeCost(classNum, in, building);
+			bManager.addUpgrade(1, bManager.getBuilding(classNum, in, building)	);
+			withdraw(upgradeCost);
+		}
+		else
+		{
+			message = "You could not afford the upgrade to the Building";
+		}
+	}
+
+	public void sellBuilding(int classNum, int in, int building) 
+	{
+
+	}
+
+	public double getBuildingUpgradeCost(int classNum, int in, int building) 
+	{
+		Building b = getBuilding(classNum, in, building);
+		return b.getUpgradeCost();
 	}
 	
 }

@@ -88,7 +88,7 @@ public abstract class DisplayFramework {
 	protected ArrayList<String> getStoreManagerBuildings ( Player player , int classNum , int index )
 	{
 		ArrayList<String> list = new ArrayList<String>();
-		StoreManager sMan = player.getSoreManager( classNum , index );
+		StoreManager sMan = player.getSMan( classNum , index );
 		for (int i = 1; i <= sMan.size(); i++)
 			list.add(i + "\t" + sMan.get(i-1)); 
 		return list;
@@ -149,8 +149,8 @@ public abstract class DisplayFramework {
 	protected ArrayList<String> getSMansWithStats(Player player, int classNum) 
 	{
 		ArrayList<String> list = new ArrayList<String>();
-		ArrayList<StoreManager> sMans = player.getSoreManagers(classNum);
-		if (list == null || list.size() == 0)
+		ArrayList<StoreManager> sMans = player.getSMans(classNum);
+		if ( sMans == null || sMans.size() == 0 )
 		{
 			list.add("empty");
 			return list;
@@ -173,7 +173,7 @@ public abstract class DisplayFramework {
 	 */
 	protected String viewStoreManager( Player p , int classNum, int in ) 
 	{
-		return p.getSoreManagers(classNum).get(in).toString();
+		return p.getSMan(classNum , in).toString();
 	}
 
 	//==========================================
