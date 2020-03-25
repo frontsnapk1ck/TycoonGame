@@ -3,6 +3,10 @@ package buildings;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import buildings.level.HighLevel;
+import buildings.level.LowLevel;
+import buildings.level.MidLevel;
+
 public class GrandManager {
 	
 	/**list of all the {@link Building}s a player can own with their defalut values*/
@@ -39,15 +43,15 @@ public class GrandManager {
 	 */
 	private void setAllBuildings ()
 	{
-		this.allBuildings.add(new Building(buildingTypes.get(0) , 5 , 1 , 10));
-		this.allBuildings.add(new Building(buildingTypes.get(1) , 5 , 2 , 10));
-		this.allBuildings.add(new Building(buildingTypes.get(2) , 5 , 3 , 10));
-		this.allBuildings.add(new Building(buildingTypes.get(3) , 5 , 4 , 10));
-		this.allBuildings.add(new Building(buildingTypes.get(4) , 5 , 5 , 10));
-/*		6
- * 		7
- * 		...
- */
+		this.allBuildings.add(new Building(buildingTypes.get(0) , 10 , new LowLevel(5)));
+		this.allBuildings.add(new Building(buildingTypes.get(1) , 10 , new MidLevel(6)));
+		this.allBuildings.add(new Building(buildingTypes.get(2) , 10 , new MidLevel(7)));
+		this.allBuildings.add(new Building(buildingTypes.get(3) , 10 , new HighLevel(6)));
+		this.allBuildings.add(new Building(buildingTypes.get(4) , 10 , new HighLevel(7)));
+		//6
+		//7
+		//8
+		//...
 	}
 	
 	/**
@@ -72,8 +76,7 @@ public class GrandManager {
 	public void addBuilding (int i)
 	{
 		BuildingType bT = this.buildingTypes.get(i);
-		String id = bT + " " + this.ownedBuildings.get(bT).size();
-		Building toAdd = this.allBuildings.get(i).clone(id);
+		Building toAdd = this.allBuildings.get(i).clone();
 		checkHashArrray(bT);
 		StoreManager sMan = this.getFirstSMan (bT);
 		sMan.add(toAdd);
@@ -125,9 +128,9 @@ public class GrandManager {
 	 * @param l nubmer of levels to add to the {@link Building}
 	 * @param b the {@link Building} to be upgraded
 	 */
-	public void addUpgrade(int l , Building b) 
+	public void addUpgrade( Building b ) 
 	{
-		b.addLevel(l);
+		b.addLevel();
 	}
 
 	/**

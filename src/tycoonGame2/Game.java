@@ -2,6 +2,8 @@ package tycoonGame2;
 
 import java.util.ArrayList;
 
+import factory.BuildingFactory;
+
 /**
  * @author	S38392
  *
@@ -15,6 +17,10 @@ public class Game extends GameFramework {
 
 	public static void main(String[] args) 
 	{
+		//dslfds;klfgjds;lfkjl;dsaf
+		BuildingFactory factory = new BuildingFactory();
+		factory.load ("res/stockBuildings.txt");
+		//sdfhosdifhlkojdsf
 		game = getInstance(game);
 		game.setupGame();
 		game.start();
@@ -31,10 +37,10 @@ public class Game extends GameFramework {
 	{
 		while (playing)
 		{
-			Menu.line(10);
+			menu.line(10);
 			
-			Menu.out("Day: " + day);
-			Menu.out(this.getStats());
+			menu.out("Day: " + day);
+			menu.out(this.getStats());
 			message(message);
 			
 			message = null;
@@ -48,7 +54,7 @@ public class Game extends GameFramework {
 		ArrayList<Integer> intList = numbersXThruX( 0 , 3 );
 		intList.add(9);
 
-		Menu.main();
+		menu.main();
 		int in = input.getUserInt("> " , intList);
 		operate(in);
 	}
@@ -69,10 +75,10 @@ public class Game extends GameFramework {
 
 		if (in == BUY_BUILDING)
 		{
-			Menu.out( menu.getStockBuilings( this.player ));
-			Menu.line();
-			Menu.out( "0\tback");
-			Menu.line();
+			menu.out( dispFrm.getStockBuilings( this.player ));
+			menu.line();
+			menu.out( "0\tback");
+			menu.line();
 
 			ArrayList<Integer> intList = numbers1ThruX(this.player.getNumTypes());
 			int buildingNum = input.getUserInt( "> " , intList);
@@ -81,10 +87,10 @@ public class Game extends GameFramework {
 		}
 		else if ( in == SHOW_STORE_MANAGERS )
 		{
-			Menu.out( menu.getAllClasses( this.player ));
-			Menu.line();
-			Menu.out( "0\tback");
-			Menu.line();
+			menu.out( dispFrm.getAllClasses( this.player ));
+			menu.line();
+			menu.out( "0\tback");
+			menu.line();
 
 			ArrayList<Integer> intList = numbersXThruX( 0 , this.player.getNumTypes() );
 			int classNum = input.getUserInt( "> "  , intList );
@@ -94,10 +100,10 @@ public class Game extends GameFramework {
 		}
 		else if ( in == BUY_STORE_MANAGER )
 		{
-			Menu.out( menu.getAllClasses( this.player ));
-			Menu.line();
-			Menu.out( "0\tback");
-			Menu.line();
+			menu.out( dispFrm.getAllClasses( this.player ));
+			menu.line();
+			menu.out( "0\tback");
+			menu.line();
 
 			ArrayList<Integer> intList = numbersXThruX( 0 , this.player.getNumTypes() );
 			int classNum = input.getUserInt( "> "  , intList );
@@ -121,7 +127,9 @@ public class Game extends GameFramework {
 
 	private void buyStoreManager(int classNum) 
 	{
-		if (classNum == 0)
+		final int BACK = 0;
+
+		if (classNum == BACK)
 			return;
 		if (!player.validWithdraw(player.getSManCost()))
 		{
@@ -147,12 +155,12 @@ public class Game extends GameFramework {
 	{
 		final int BACK = 0;
 
-		ArrayList<String> list  = menu.getSMansWithStats( this.player , classNum );
+		ArrayList<String> list  = dispFrm.getSMansWithStats( this.player , classNum );
 		ArrayList<Integer> intList = numbers1ThruX(list.size());
 		intList.add(0);
-		Menu.out(list);
-		Menu.out("0\tback");
-		Menu.line();
+		menu.out(list);
+		menu.out("0\tback");
+		menu.line();
 
 		int in = input.getUserInt("> " , intList);
 		if (in == BACK)
@@ -166,14 +174,14 @@ public class Game extends GameFramework {
 
 	private void viewStoreManager(int classNum, int in, int recalValue) 
 	{
-		String sMan = menu.viewStoreManager(this.player, classNum, in);
+		String sMan = dispFrm.viewStoreManager(this.player, classNum, in);
 		if (sMan == null)
 		{
 			selectStoreManager( classNum , recalValue );
 			return;
 		}
 
-		Menu.out(sMan);
+		menu.out(sMan);
 		menu.storeManager();
 		ArrayList<Integer> intList = numbers1ThruX(2);
 		intList.add(0);
@@ -199,10 +207,10 @@ public class Game extends GameFramework {
 		}
 		else if ( choice == SHOW_BUILDINGS )
 		{
-			ArrayList<String> buildingList = menu.getStoreManagerBuildings( player, classNum, in); 
-			Menu.out(buildingList);
-			Menu.line();
-			Menu.out("0\tback");
+			ArrayList<String> buildingList = dispFrm.getStoreManagerBuildings( player, classNum, in); 
+			menu.out(buildingList);
+			menu.line();
+			menu.out("0\tback");
 			
 			ArrayList<Integer> intList = numbersXThruX( 0 , buildingList.size() );
 			int building = input.getUserInt(">" , intList);
@@ -226,7 +234,7 @@ public class Game extends GameFramework {
 		final int UPGRADE = 1;
 		final int SELL = 2;
 		
-		Menu.out ("" + player.getBuilding(classNum , in , building));
+		menu.out ("" + player.getBuilding(classNum , in , building));
 		double cost = player.getBuildingUpgradeCost(classNum, in, building);
 		menu.building( fixBal( cost ) );
 		ArrayList<Integer> intList = numbersXThruX(0, 2);
@@ -332,7 +340,7 @@ public class Game extends GameFramework {
 		{
 			return "" + bal + "0";
 		}
-		return "" + ((int) bal * 100)/100;
+		return "" + ((int) (bal * 100))/100;
 	}
 
 }

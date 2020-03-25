@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import buildings.Building;
 import buildings.StoreManager;
-import io.Input;
 import player.Player;
 
 /**
@@ -15,9 +14,6 @@ import player.Player;
  *
  */
 public abstract class DisplayFramework {
-
-	protected Input input = new Input();
-	protected static Menu menu = new Menu();
 
 	//============================================
 	//			Classes of Building Types
@@ -175,10 +171,5 @@ public abstract class DisplayFramework {
 	{
 		return p.getSMan(classNum , in).toString();
 	}
-
-	//==========================================
-	//			Utility
-	//==========================================
-
 
 }

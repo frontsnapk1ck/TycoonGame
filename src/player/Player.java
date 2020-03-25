@@ -180,7 +180,7 @@ public class Player {
 		if (validWithdraw(bManager.getBuilding(classNum, in, building).getUpgradeCost()))
 		{
 			double upgradeCost = bManager.getBuildingUpgradeCost(classNum, in, building);
-			bManager.addUpgrade(1, bManager.getBuilding(classNum, in, building)	);
+			bManager.addUpgrade(bManager.getBuilding(classNum, in, building)	);
 			withdraw(upgradeCost);
 		}
 		else

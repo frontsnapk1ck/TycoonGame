@@ -2,9 +2,9 @@ package tycoonGame2;
 
 import java.util.ArrayList;
 
-public class Menu extends DisplayFramework {
+public class Menu {
 	
-	public static void main ()
+	public void main ()
 	{
 		System.out.println("1\tBuy Building");
 		System.out.println("2\tShow Store Managers");
@@ -38,7 +38,7 @@ public class Menu extends DisplayFramework {
 		System.out.println("0\tBack");
 	}
 	
-	public static void out (ArrayList<String> list)
+	public void out (ArrayList<String> list)
 	{
 		for ( int i = 0; i < list.size(); i++)
 		{
@@ -46,17 +46,17 @@ public class Menu extends DisplayFramework {
 		}
 	}
 
-	public static void out(String out) 
+	public void out(String out) 
 	{
 		System.out.println(out);
 	}
 
-	public static void line() 
+	public void line() 
 	{
 		System.out.println("");
 	}
 
-	public static void line(int count) 
+	public void line(int count) 
 	{
 		for (count += 0; count >=0; count--)
 		{
