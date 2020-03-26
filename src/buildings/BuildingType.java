@@ -1,5 +1,8 @@
 package buildings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * locks down the avalibe inputs for building types. private class with STATIC FINAL vars.
  * @author S38392
@@ -15,27 +18,48 @@ public class BuildingType {
 	
 	private String id;
 	
+	public static BuildingType parseBT(String string) 
+	{
+		BuildingType bTCheck = new BuildingType (string); 
+		List<BuildingType> list = new ArrayList<BuildingType>();
+		list.add(LEMONADE_STAND);
+		list.add(TWO);
+		list.add(THREE);
+		list.add(FOUR);
+		list.add(FIVE);
+		for (BuildingType type : list)
+		{
+			if (type.equals(bTCheck))
+				return type;
+		}
+		return null;
+	}
+
 	private BuildingType (String id)
 	{
 		this.id = id;
 	}
-	
-	@Override public String toString ()
+
+	private String getID() 
 	{
 		return this.id;
 	}
 	
-//	@Override public boolean equals ( Object obj )
-//	{
-////		System.out.println("\n\t EQUALS ");
-//		if ( obj instanceof BuildingType )
-//		{
-////			System.out.println("\n\t SAME TYPE ");
-//			BuildingType that = (BuildingType) obj;
-//			return this.id.equals( that.id );
-//		}
-//		else
-//			return false;
-//	}
+	@Override 
+	public String toString ()
+	{
+		return this.id;
+	}
+
+	@Override
+	public boolean equals(Object obj) 
+	{
+		if (obj instanceof BuildingType)
+		{
+			BuildingType that = (BuildingType) obj;
+			return that.getID().equals(this.id);
+		}
+		return false;
+	}
 
 }

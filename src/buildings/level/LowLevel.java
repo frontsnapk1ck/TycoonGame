@@ -5,6 +5,7 @@ public class LowLevel extends Level {
     public LowLevel (int max)
     {
         super(max);
+        
         setCurrent(1);
     }
 
@@ -32,6 +33,5 @@ public class LowLevel extends Level {
             );
         return clone;
     }
-
 
 }

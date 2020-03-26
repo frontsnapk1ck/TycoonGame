@@ -2,7 +2,8 @@ package buildings.level;
 
 public class HighLevel extends Level{
 
-    public HighLevel(int max) {
+    public HighLevel(int max) 
+    {
         super(max);
     }
 
@@ -30,5 +31,4 @@ public class HighLevel extends Level{
         return clone;
     }
 
-    
 }

@@ -16,7 +16,8 @@ public class MidLevel extends Level {
     }
 
     @Override
-    public double getUpgradeCost() {
+    public double getUpgradeCost() 
+    {
         // TODO Auto-generated method stub
         return 0;
     }
