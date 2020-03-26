@@ -34,4 +34,10 @@ public class LowLevel extends Level {
         return clone;
     }
 
+    @Override
+    public String toString() 
+    {
+        return "Low " + getCurrent() + "/" + getMax(); 
+    }
+
 }

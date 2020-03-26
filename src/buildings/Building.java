@@ -19,10 +19,10 @@ public class Building {
 	private Level level;
 	/**the base cost of this {@link Building}*/
 	private double cost;
-	/**the base increase of this {@link Building}*/
-	private double increase;
 	/**the {@link BuildingType} of this {@link Building}*/
 	private BuildingType bT;
+	/**the id of this {@link Building}'s {@link StoreManager} */
+	private String sManID;
 
 	/**
 	 * @param BuildingType - Sets the type of building <br></br>
@@ -83,7 +83,7 @@ public class Building {
 	 */
 	public String displayStats ()
 	{
-		return "" + this.bT + "\tcost: " + this.cost + "\t and increases: " + this.increase;
+		return "" + this.bT + "\tcost: " + this.cost + "\t and increases: " + getIncrease();
 	}
 	
 	@Override public String toString ()
@@ -117,4 +117,21 @@ public class Building {
 		return bT;
 	}
 
+	public void setSManID(String id) 
+	{
+		this.sManID = id;
+	}
+
+	public String getSManID ()
+	{
+		return this.sManID;
+	}
+
+	public String getSaveData() 
+	{
+		String out = 	this.sManID + "|" +
+						this.cost + "|" +
+						this.level;
+		return out;
+	}
 }

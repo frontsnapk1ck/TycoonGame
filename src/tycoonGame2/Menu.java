@@ -1,6 +1,6 @@
 package tycoonGame2;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 	
@@ -11,7 +11,7 @@ public class Menu {
 		System.out.println("3\tBuy Store Manager");
 		System.out.println("");
 		System.out.println("9\tNew day");
-		System.out.println("0\tend");
+		System.out.println("0\tpause");
 	}
 	
 	public void storeManager() 
@@ -37,8 +37,18 @@ public class Menu {
 		System.out.println("");
 		System.out.println("0\tBack");
 	}
-	
-	public void out (ArrayList<String> list)
+
+	public void end() 
+	{
+		System.out.println("1\tSave Game");
+		System.out.println("2\tExit Without Saving");
+		System.out.println("3\tReset and Exit");
+		System.out.println("");
+		System.out.println("0\tBack");
+
+	}
+
+	public void out (List<String> list)
 	{
 		for ( int i = 0; i < list.size(); i++)
 		{
@@ -63,4 +73,5 @@ public class Menu {
 			line();
 		}
 	}
+
 }

@@ -2,56 +2,30 @@ package buildings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import buildings.level.HighLevel;
-import buildings.level.LowLevel;
-import buildings.level.MidLevel;
+import factory.BuildingFactory;
+import save.SaveGameManager;
 
 public class GrandManager {
 	
 	/**list of all the {@link Building}s a player can own with their defalut values*/
-	private ArrayList<Building> allBuildings;
+	private List<Building> allBuildings;
 	/**list of all the {@link Building}s the player owns*/
 	private HashMap <BuildingType , ArrayList<StoreManager>> ownedBuildings;
 	/**list of all the availble {@link BuildingType}s for each of the {@link Building}s*/
-	private ArrayList<BuildingType> buildingTypes;
+	private List<BuildingType> buildingTypes;
 
 	public GrandManager ()
 	{
-		this.allBuildings = new ArrayList<Building>();
-		this.ownedBuildings = new HashMap<BuildingType, ArrayList<StoreManager>>();
-		this.buildingTypes = new ArrayList<BuildingType>();
-		
-		this.setAllBuildingTypes();
-		this.setAllBuildings ();
-	}
-	
-	/**
-	 * set all the {@link BuildingType}s in a list to be refernced
-	 */
-	private void setAllBuildingTypes() 
-	{
-		this.buildingTypes.add(BuildingType.LEMONADE_STAND);
-		this.buildingTypes.add(BuildingType.TWO);
-		this.buildingTypes.add(BuildingType.THREE);
-		this.buildingTypes.add(BuildingType.FOUR);
-		this.buildingTypes.add(BuildingType.FIVE);
-	}
+		BuildingFactory factory = new BuildingFactory();
+		factory.load ("res\\assets\\objects\\stockBuildings.txt");
 
-	/**
-	 * set all {@link Building}s in a list to be refernced later and to be cloned
-	 */
-	private void setAllBuildings ()
-	{
-		this.allBuildings.add(new Building(buildingTypes.get(0) , 10 , new LowLevel(5)));
-		this.allBuildings.add(new Building(buildingTypes.get(1) , 10 , new MidLevel(6)));
-		this.allBuildings.add(new Building(buildingTypes.get(2) , 10 , new MidLevel(7)));
-		this.allBuildings.add(new Building(buildingTypes.get(3) , 10 , new HighLevel(6)));
-		this.allBuildings.add(new Building(buildingTypes.get(4) , 10 , new HighLevel(7)));
-		//6
-		//7
-		//8
-		//...
+		this.allBuildings = factory.getBuildings();
+		this.buildingTypes = factory.getTypes();
+
+		this.ownedBuildings = new HashMap<BuildingType, ArrayList<StoreManager>>();
+
 	}
 	
 	/**
@@ -173,7 +147,7 @@ public class GrandManager {
 	{
 		double increase = 0;
 		
-		ArrayList<StoreManager> list = this.ownedBuildings.get(bT);
+		List<StoreManager> list = this.ownedBuildings.get(bT);
 		
 		for (int i = 0; i < list.size(); i++)
 			increase += list.get(i).getIncrease();
@@ -198,7 +172,7 @@ public class GrandManager {
 		{
 			BuildingType bT = this.buildingTypes.get(i);
 			checkHashArrray(bT);
-			ArrayList<StoreManager> list = this.ownedBuildings.get(bT);
+			List<StoreManager> list = this.ownedBuildings.get(bT);
 			for (int j = 0; j < list.size(); j++) 
 			{
 				money += list.get(j).getIncrease();
@@ -214,7 +188,7 @@ public class GrandManager {
 	 */
 	private void checkHashArrray(BuildingType bT) 
 	{
-		ArrayList<StoreManager> list = this.ownedBuildings.get(bT);
+		List<StoreManager> list = this.ownedBuildings.get(bT);
 		if (list == null)
 			this.ownedBuildings.put(bT , new ArrayList<StoreManager>());
 	}
@@ -252,7 +226,7 @@ public class GrandManager {
 	 * @param i index of the {@link HashMap} to get
 	 * @return {@link ArrayList} of s
 	 */
-	public ArrayList<StoreManager> getHash(int i) 
+	public List<StoreManager> getHash(int i) 
 	{
 		BuildingType bT = this.buildingTypes.get(i);
 		return this.ownedBuildings.get(bT);
@@ -272,7 +246,7 @@ public class GrandManager {
 	 * 
 	 * @return list of all the stock buildings
 	 */
-	public ArrayList<Building> getStock() 
+	public List<Building> getStock() 
 	{
 		return this.allBuildings;
 	}
@@ -319,5 +293,77 @@ public class GrandManager {
 		BuildingType bT = buildingTypes.get(classNum);
 		return this.ownedBuildings.get(bT).get(in).get(building).getUpgradeCost();
 	}
+
+	public void save() 
+	{
+		saveSMans();
+		saveBuildings();
+	}
+
+	private void saveBuildings() 
+	{
+		SaveGameManager save = new SaveGameManager();
+		List<String> buildings = this.getAllBuildingsSaveData();
+		
+		save.save(buildings, "res\\assets\\saves\\ownedBuildings" );
+	}
+
+
+	private List<Building> getAllBuildings() 
+	{
+		List<StoreManager> sMans = getAllSMans();
+		List<Building> buildings = new ArrayList<Building>();
+		for (StoreManager sMan : sMans)
+			buildings.addAll(sMan.get());
+		return buildings;
+	}
+
+	private List<String> getAllBuildingsSaveData() 
+	{
+		List<String> data = new ArrayList<String>();
+		List<Building> buildings =  getAllBuildings();
+		for (Building building : buildings)
+			data.add(building.getSaveData());
+		return data;
+	}
+	private void saveSMans() 
+	{
+		SaveGameManager save = new SaveGameManager();
+		List<String> storeManagers = this.getAllSManSaveData();
+
+		save.save(storeManagers, "res\\assets\\saves\\storeManagers");
+	}
+
+	private List<StoreManager> getAllSMans() 
+	{
+		List<StoreManager> sMans = new ArrayList<StoreManager>();
+		for (BuildingType bT : buildingTypes)
+		{
+			if (this.ownedBuildings.get(bT) != null)
+				sMans.addAll(this.ownedBuildings.get(bT));
+		}
+		return sMans;
+	}
+
+	private List<String> getAllSManSaveData ()
+	{
+		List<StoreManager> sMans = getAllSMans();
+		List<String> data = new ArrayList<String>();
+		for (StoreManager sMan : sMans)
+		{
+			data.add(sMan.getSaveData());
+		}
+		return data;
+	}
+
+	public void resetSave() 
+	{
+		SaveGameManager reset = new SaveGameManager();
+		List<String> list = new ArrayList<String>();
+		list.add("");
+		reset.save( list, "res\\assets\\saves\\storeManagers"  );
+		reset.save( list, "res\\assets\\saves\\ownedBuildings" );
+	}
+
 
 }

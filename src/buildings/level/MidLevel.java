@@ -30,4 +30,10 @@ public class MidLevel extends Level {
         return clone;
     }
 
+    @Override
+    public String toString() 
+    {
+        return "Mid " + getCurrent() + "/" + getMax(); 
+    }
+
 }

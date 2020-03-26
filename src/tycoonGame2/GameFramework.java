@@ -18,11 +18,12 @@ abstract class GameFramework{
 
 	protected void setupGame() 
 	{
-		this.player = new Player();
+		player = new Player();
+		input = new Input();
 		menu = new Menu();
-		this.input = new Input();
+		dispFrm = new DisplayFramework(); 
 		
-		this.player.startGame();
+		player.startGame();
 	}
 
 	protected void message(String message) 

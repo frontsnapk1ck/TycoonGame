@@ -1,8 +1,8 @@
 package tycoonGame2;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import factory.BuildingFactory;
 
 /**
  * @author	S38392
@@ -17,10 +17,6 @@ public class Game extends GameFramework {
 
 	public static void main(String[] args) 
 	{
-		//dslfds;klfgjds;lfkjl;dsaf
-		BuildingFactory factory = new BuildingFactory();
-		factory.load ("res/stockBuildings.txt");
-		//sdfhosdifhlkojdsf
 		game = getInstance(game);
 		game.setupGame();
 		game.start();
@@ -69,9 +65,8 @@ public class Game extends GameFramework {
 		final int BUY_BUILDING = 1;
 		final int SHOW_STORE_MANAGERS = 2;
 		final int BUY_STORE_MANAGER = 3;
-		
 		final int NEW_DAY = 9;
-		final int END = 0;
+		final int PAUSE = 0;
 
 		if (in == BUY_BUILDING)
 		{
@@ -115,14 +110,40 @@ public class Game extends GameFramework {
 			nextDay();
 			return;
 		}
-		else if ( in == END )
+		else if ( in == PAUSE )
 		{
-			this.playing = false;
-			game.destroy();
-			return;
+			pause();
 		}
 		input.next();
 		
+	}
+
+	private void pause() 
+	{
+		final int BACK = 0;
+		final int SAVE = 1;
+		final int DONT_SAVE = 2;
+		final int RESET = 3;
+
+		menu.end();
+		List<Integer> intList = numbersXThruX(0,3);
+		int in = input.getUserInt("> " , intList);
+
+		if (in == BACK)
+			return;
+		else if (in == SAVE)
+			player.save();
+		else if (in == DONT_SAVE)
+		{
+			this.playing = false;
+			game.destroy();
+		}
+		else if (in == RESET)
+		{
+			player.resetSave();
+			this.playing = false;
+			game.destroy();
+		}
 	}
 
 	private void buyStoreManager(int classNum) 
@@ -155,8 +176,8 @@ public class Game extends GameFramework {
 	{
 		final int BACK = 0;
 
-		ArrayList<String> list  = dispFrm.getSMansWithStats( this.player , classNum );
-		ArrayList<Integer> intList = numbers1ThruX(list.size());
+		List<String> list  = dispFrm.getSMansWithStats( this.player , classNum );
+		List<Integer> intList = numbers1ThruX(list.size());
 		intList.add(0);
 		menu.out(list);
 		menu.out("0\tback");

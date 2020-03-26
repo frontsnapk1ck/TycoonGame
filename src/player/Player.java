@@ -1,6 +1,7 @@
 package player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import buildings.Building;
 import buildings.BuildingType;
@@ -41,7 +42,7 @@ public class Player {
 	 * @param i index of the hashMap to return
 	 * @return {@link ArrayList} filled with {@link StoreManager}s for all of the {@link BuildingType}s at the index
 	 */
-	public ArrayList<StoreManager> getSMans (int i)
+	public List<StoreManager> getSMans (int i)
 	{
 		return this.bManager.getHash(i);
 	}
@@ -55,10 +56,10 @@ public class Player {
 	 * @param index the index of the {@link BuildingType} to look up
 	 * @return list of all {@link Building}s for a {@link BuildingType}
 	 */
-	public ArrayList<Building> getOwnedBuildings (int index)
+	public List<Building> getOwnedBuildings (int index)
 	{
-		ArrayList<StoreManager> sMans = getSMans(index);
-		ArrayList<Building> buildings = new ArrayList<Building>();
+		List<StoreManager> sMans = getSMans(index);
+		List<Building> buildings = new ArrayList<Building>();
 		if (sMans != null)
 		{
 			for (int i = 0; i< sMans.size(); i++)
@@ -91,7 +92,7 @@ public class Player {
 	/**
 	 * @return all the stock {@link Building}s in the Manager
 	 */
-	public ArrayList<buildings.Building> getStockBuildings() 
+	public List<buildings.Building> getStockBuildings() 
 	{
 		return this.bManager.getStock();
 	}
@@ -198,6 +199,18 @@ public class Player {
 	{
 		Building b = getBuilding(classNum, in, building);
 		return b.getUpgradeCost();
+	}
+
+	public void save() 
+	{
+		bManager.save();
+		account.save();
+	}
+
+	public void resetSave() 
+	{
+		bManager.resetSave();
+		account.resetSave();
 	}
 	
 }

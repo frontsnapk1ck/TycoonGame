@@ -1,6 +1,7 @@
 package io;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Input {
@@ -58,7 +59,7 @@ public class Input {
 	 */
 	public int getUserInt()
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		return this.handleGettingUserInt("", "Invalid Number" , intList);
 	}
 	/**
@@ -70,7 +71,7 @@ public class Input {
 	 */
 	public int getUserInt(int acceptable)
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		intList.add(acceptable);
 		return this.handleGettingUserInt("", "Invalid Number", intList);
 	}
@@ -100,7 +101,7 @@ public class Input {
 	 */
 	public int getUserInt(String prompt) 
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		return this.handleGettingUserInt(prompt, "Invalid Number" , intList);
 	}
 
@@ -114,7 +115,7 @@ public class Input {
 	 */
 	public int getUserInt( String prompt , int acceptable)
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		intList.add(acceptable);
 		return this.handleGettingUserInt( prompt , "Invalid Number" , intList );
 	}
@@ -127,7 +128,7 @@ public class Input {
 	 * @param intList the desired {@link Integer}s -- returns <code>true</code> if any one of the numbers is met
 	 * @return the {@link Integer} the user inputed
 	 */
-	public int getUserInt ( String prompt , ArrayList<Integer> intList)
+	public int getUserInt ( String prompt , List<Integer> intList)
 	{
 		return this.handleGettingUserInt( prompt , "Invalid Number" , intList );
 	}
@@ -146,7 +147,7 @@ public class Input {
 	 */
 	public int getUserInt(String prompt , String error)
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		return this.handleGettingUserInt( prompt , error , intList );
 	}
 
@@ -160,7 +161,7 @@ public class Input {
 	 */
 	public int getUserInt( String prompt , String error , int acceptable)
 	{
-		ArrayList<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList = new ArrayList<Integer>();
 		intList.add(acceptable);
 		return this.handleGettingUserInt(prompt, error, intList);
 	}
@@ -173,7 +174,7 @@ public class Input {
 	 * @param intList the desired {@link Integer}s -- returns <code>true</code> if any one of the numbers is met
 	 * @return the {@link Integer} the user inputed
 	 */
-	public int getUserInt( String prompt , String error , ArrayList<Integer> intList)
+	public int getUserInt( String prompt , String error , List<Integer> intList)
 	{
 		return this.handleGettingUserInt(prompt, error, intList);
 	}
@@ -188,7 +189,7 @@ public class Input {
 	 * @param intList the list of integers acceptable to use
 	 * @return the {@link Integer} the user inputed
 	 */
-	private int handleGettingUserInt(String prompt , String error , ArrayList<Integer> intList)
+	private int handleGettingUserInt(String prompt , String error , List<Integer> intList)
 	{
 		System.out.print(prompt);
 		String 	in = scanner.nextLine();
@@ -213,7 +214,7 @@ public class Input {
 	 */
 	public char getUserChar()
 	{
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		return this.handleGettingUserChar( "", "Invalid Char" , charList );
 	}
 
@@ -225,7 +226,7 @@ public class Input {
 	 */
 	public char getUserChar(char acceptable)
 	{
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		charList.add(acceptable);
 		return this.handleGettingUserChar( "" , "Invalid Char" , charList);
 	}
@@ -254,7 +255,7 @@ public class Input {
 	 */
 	public char getUserChar(String prompt)
 	{
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		return this.handleGettingUserChar( prompt , "Invalid Char" , charList );
 	}
 
@@ -267,7 +268,7 @@ public class Input {
 	 */
 	public char getUserChar ( String prompt , char acceptable)
 	{
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		charList.add(acceptable);
 		return this.handleGettingUserChar(prompt, "Invalid Char", charList);
 	}
@@ -279,7 +280,7 @@ public class Input {
 	 * @param prompt the prompt to be used upon request for user entry
 	 * @return single uppercase {@link Character} input by the User
 	 */
-	public char getUserChar ( String prompt , ArrayList<Character> charList)
+	public char getUserChar ( String prompt , List<Character> charList)
 	{
 		return this.handleGettingUserChar(prompt, "Invalid Char", charList);
 	}
@@ -297,7 +298,7 @@ public class Input {
 	 */
 	public char getUserChar( String prompt , String error )
 	{		
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		return this.handleGettingUserChar( prompt, error , charList);
 	}
 
@@ -310,7 +311,7 @@ public class Input {
 	 */
 	public char getUserChar( String prompt , String error , char acceptable)
 	{
-		ArrayList<Character> charList = new ArrayList<Character>();
+		List<Character> charList = new ArrayList<Character>();
 		charList.add(acceptable);
 		return this.handleGettingUserChar(prompt, error, charList);
 	}
@@ -322,7 +323,7 @@ public class Input {
 	 * @param charList the desired {@link Character}s -- returns <code>true</code> if one of the {@link Character}s are met
 	 * @return single uppercase {@link Character} input by the User
 	 */
-	public char getUserChar ( String prompt , String error , ArrayList<Character> charList )
+	public char getUserChar ( String prompt , String error , List<Character> charList )
 	{
 		return this.handleGettingUserChar(prompt, error, charList);
 	}
@@ -337,7 +338,7 @@ public class Input {
 	 * @param error the message to be shown to the user upon every failed input attempt
 	 * @return single uppercase {@link Character} input by the User
 	 */
-	private char handleGettingUserChar( String prompt , String error , ArrayList<Character> charList )
+	private char handleGettingUserChar( String prompt , String error , List<Character> charList )
 	{
 		System.out.print(prompt);
 		String in = scanner.nextLine();
@@ -450,7 +451,7 @@ public class Input {
 	//		Checkers -- In List
 	//===========================================
 
-	private boolean inListInt(ArrayList<Integer> intList, String in) 
+	private boolean inListInt(List<Integer> intList, String in) 
 	{
 		int intIn = Integer.parseInt(in);
 		if (intList == null || intList.size() == 0)
@@ -467,7 +468,7 @@ public class Input {
 		return false;
 	}
 
-	private boolean inListChar(ArrayList<Character> charList, String in) 
+	private boolean inListChar(List<Character> charList, String in) 
 	{
 		if (charList == null || charList.size() == 0)
 			return true;

@@ -77,5 +77,11 @@ public class Account {
 	{
 		return this.loans;
 	}
+	public void save() {
+	}
+	public void resetSave() {
+	}
+	public void checkSaves() {
+	}
 
 }

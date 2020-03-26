@@ -26,12 +26,13 @@ public class StoreManager {
 	/**the number of upgrades currently on this Store manager<br></br>
 	 * used to calcualte <i>upkeepCost</i>*/
 	private int 	upgradeCount;
-	
 	/**a list of all the building this manager is managing <br></br> 
 	 * these buildigns must be of the same type to be in the same manager*/
 	private ArrayList<Building> buildings;
 	/**the building type that the Store Manager must hold*/
 	private BuildingType bT;
+	/**the ID for the {@link StoreManager} */
+	private String id;
 	
 	public StoreManager (BuildingType bT)
 	{
@@ -43,10 +44,24 @@ public class StoreManager {
 		this.buildings = new ArrayList<Building>();
 		
 		this.upkeepCost = baseUpkeepCost;
+
+		setID();
 	}
 	
+	private void setID() 
+	{
+		int id = ( int ) (Math.random() * 10000);
+		this.id = "" + this.bT + "|" + id;
+	}
+
+	public void setID(String id)
+	{
+		this.id = id;
+	}
+
 	public void add(Building b)
 	{
+		b.setSManID(this.id);
 		this.buildings.add(b);
 	}
 	
@@ -217,6 +232,32 @@ public class StoreManager {
 		out += "\tBuildings: " + this.size() + "/" + this.maxBuildings;
 		out += "\tUpkeep Cost: " + this.getUpkeepCost();
 		return out;
+	}
+
+	public String getSaveData ()
+	{
+		String out = 	this.id + "|" + 
+						this.baseUpkeepCost + "|" + 
+						this.upgradeCount + "|" + 
+						this.maxBuildings + "|" +
+						this.multiplyer;
+		return out;
+
+	}
+
+	public void setBaseUpkeepCost(int baseUpkeepCost) 
+	{
+		this.baseUpkeepCost = baseUpkeepCost;		
+	}
+
+	public void setMaxBuildings(int maxBuildings) 
+	{
+		this.maxBuildings = maxBuildings;
+	}
+
+	public void setMultiplier(double multiplyer) 
+	{
+		this.multiplyer= multiplyer;
 	}
 
 }

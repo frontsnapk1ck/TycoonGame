@@ -14,6 +14,7 @@ public abstract class Level {
 	public abstract double getValue();
 	public abstract double getUpgradeCost();
 	public abstract Level clone();
+	public abstract String toString();
 
 	public int getCurrent()
 	{

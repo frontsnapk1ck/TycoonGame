@@ -1,6 +1,7 @@
 package tycoonGame2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import buildings.Building;
 import buildings.StoreManager;
@@ -13,7 +14,7 @@ import player.Player;
  * @author S38392
  *
  */
-public abstract class DisplayFramework {
+public class DisplayFramework {
 
 	//============================================
 	//			Classes of Building Types
@@ -25,7 +26,7 @@ public abstract class DisplayFramework {
 	 * @return {@link ArrayList} of {@link String}s of {@link buildings.BuildingType}s a {@link Player} owns only if there is an owned {@link Building} in
 	 *         the {@link java.util.HashMap} of all the {@link buildings.BuildingType}s
 	 */
-	protected ArrayList<String> getClasses(Player p) {
+	public ArrayList<String> getClasses(Player p) {
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 0; i < p.getNumTypes(); i++) {
 			if (p.getOwnedBuildings(i) != null && p.getOwnedBuildings(i).size() != 0)
@@ -74,14 +75,14 @@ public abstract class DisplayFramework {
 	 * @param Player pass a player arround to extract the list of buildings
 	 * @return {@link ArrayList} of {@link String}s for all the Stock {@link Building}s a {@link Player} can buy
 	 */
-	protected ArrayList<String> getStockBuilings(Player player) {
+	public ArrayList<String> getStockBuilings(Player player) {
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 1; i <= player.getStockBuildings().size(); i++)
 			list.add("" + i + "\t" + player.getStockBuildings().get(i-1).displayStats());
 		return list;
 	}
 
-	protected ArrayList<String> getStoreManagerBuildings ( Player player , int classNum , int index )
+	public ArrayList<String> getStoreManagerBuildings ( Player player , int classNum , int index )
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		StoreManager sMan = player.getSMan( classNum , index );
@@ -97,7 +98,8 @@ public abstract class DisplayFramework {
 	 * @return {@link ArrayList} of {@link String}s of all the owned buildings in a
 	 *         class of owned buildings
 	 */
-	protected ArrayList<String> getOwnedBuilding(Player player, int m) {
+	public ArrayList<String> getOwnedBuilding(Player player, int m) 
+	{
 		int current = 1;
 		ArrayList<String> list = new ArrayList<String>();
 
@@ -117,7 +119,8 @@ public abstract class DisplayFramework {
 	 * @param Player pass a player arround to extract the list of buildings
 	 * @return {@link ArrayList} of {@link String}s for all the {@link Building}s the {@link Player} owns thorout all the {@link buildings.BuildingType}s the {@link Player} owns {@link Building}s in
 	 */
-	protected ArrayList<String> getOwnedBuilding(Player player) {
+	public ArrayList<String> getOwnedBuilding(Player player) 
+	{
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 0; i < player.getNumTypes(); i++) {
 			if (player.getOwnedBuildings(i) != null) {
@@ -142,10 +145,10 @@ public abstract class DisplayFramework {
 	 * @param classNum the index of the {@link buildings.BuildingType} to get the {@link buildings.StoreManager}s from
 	 * @return {@link ArrayList} of {@link String}s for all the store managers at a given index
 	 */
-	protected ArrayList<String> getSMansWithStats(Player player, int classNum) 
+	public List<String> getSMansWithStats(Player player, int classNum) 
 	{
-		ArrayList<String> list = new ArrayList<String>();
-		ArrayList<StoreManager> sMans = player.getSMans(classNum);
+		List<String> list = new ArrayList<String>();
+		List<StoreManager> sMans = player.getSMans(classNum);
 		if ( sMans == null || sMans.size() == 0 )
 		{
 			list.add("empty");
@@ -167,7 +170,7 @@ public abstract class DisplayFramework {
 	 * @param in the index of the {@link StoreManager} requested in the {@link ArrayList}s of {@link StoreManager}s at the given <code>ClassNum </code> index
 	 * @return detailed information about the {@link StoreManager} requested in the form of a displayable {@link String}
 	 */
-	protected String viewStoreManager( Player p , int classNum, int in ) 
+	public String viewStoreManager( Player p , int classNum, int in ) 
 	{
 		return p.getSMan(classNum , in).toString();
 	}
