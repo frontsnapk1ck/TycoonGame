@@ -3,6 +3,8 @@ package tycoonGame2;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.GUI;
+
 
 /**
  * @author	S38392
@@ -17,9 +19,11 @@ public class Game extends GameFramework {
 
 	public static void main(String[] args) 
 	{
-		game = getInstance(game);
-		game.setupGame();
-		game.start();
+		GUI gui = new GUI();
+		gui.setFramePause();
+		// game = getInstance(game);
+		// game.setupGame();
+		// game.start();
 	}
 	
 	private void start() 
