@@ -37,7 +37,7 @@ public class LowLevel extends Level {
     @Override
     public String toString() 
     {
-        return "Low " + getCurrent() + "/" + getMax(); 
+        return "Low" + "|" + getCurrent() + "|" + getMax(); 
     }
 
 }

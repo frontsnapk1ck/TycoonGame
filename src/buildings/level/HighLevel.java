@@ -34,7 +34,7 @@ public class HighLevel extends Level{
     @Override
     public String toString() 
     {
-        return "High " + getCurrent() + "/" + getMax(); 
+        return "High" + "|" +  getCurrent() + "|" + getMax(); 
     }
 
 }

@@ -12,20 +12,21 @@ public class GrandManager {
 	/**list of all the {@link Building}s a player can own with their defalut values*/
 	private List<Building> allBuildings;
 	/**list of all the {@link Building}s the player owns*/
-	private HashMap <BuildingType , ArrayList<StoreManager>> ownedBuildings;
+	private HashMap <BuildingType , List<StoreManager>> ownedBuildings;
 	/**list of all the availble {@link BuildingType}s for each of the {@link Building}s*/
 	private List<BuildingType> buildingTypes;
 
 	public GrandManager ()
 	{
+		SaveGameManager laoder = new SaveGameManager();
 		BuildingFactory factory = new BuildingFactory();
-		factory.load ("res\\assets\\objects\\stockBuildings.txt");
-
-		this.allBuildings = factory.getBuildings();
+		
+		factory.loadStock( "res\\assets\\objects\\stockBuildings.txt" );
+		this.allBuildings = factory.getStockBuildings();
 		this.buildingTypes = factory.getTypes();
 
-		this.ownedBuildings = new HashMap<BuildingType, ArrayList<StoreManager>>();
-
+		this.ownedBuildings = laoder.getOwnedBuildings();
+		System.err.println("yes");
 	}
 	
 	/**
@@ -92,7 +93,7 @@ public class GrandManager {
 	 * 
 	 * @return <i>ownedBuildings</i> which is a (HashMap" {@link BuildingType}, {@link ArrayList}"StoreManager"")
 	 */
-	public HashMap<BuildingType, ArrayList<StoreManager>> get() 
+	public HashMap<BuildingType, List<StoreManager>> get() 
 	{
 		return this.ownedBuildings;
 	}
@@ -305,7 +306,7 @@ public class GrandManager {
 		SaveGameManager save = new SaveGameManager();
 		List<String> buildings = this.getAllBuildingsSaveData();
 		
-		save.save(buildings, "res\\assets\\saves\\ownedBuildings" );
+		save.save(buildings, "res\\assets\\saves\\buildings\\ownedBuildings" );
 	}
 
 
@@ -331,7 +332,7 @@ public class GrandManager {
 		SaveGameManager save = new SaveGameManager();
 		List<String> storeManagers = this.getAllSManSaveData();
 
-		save.save(storeManagers, "res\\assets\\saves\\storeManagers");
+		save.save(storeManagers, "res\\assets\\saves\\buildings\\storeManagers");
 	}
 
 	private List<StoreManager> getAllSMans() 
@@ -361,8 +362,8 @@ public class GrandManager {
 		SaveGameManager reset = new SaveGameManager();
 		List<String> list = new ArrayList<String>();
 		list.add("");
-		reset.save( list, "res\\assets\\saves\\storeManagers"  );
-		reset.save( list, "res\\assets\\saves\\ownedBuildings" );
+		reset.save( list, "res\\assets\\saves\\buildings\\storeManagers"  );
+		reset.save( list, "res\\assets\\saves\\buildings\\ownedBuildings" );
 	}
 
 

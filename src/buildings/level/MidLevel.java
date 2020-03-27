@@ -33,7 +33,7 @@ public class MidLevel extends Level {
     @Override
     public String toString() 
     {
-        return "Mid " + getCurrent() + "/" + getMax(); 
+        return "Mid" + "|" + getCurrent() + "|" + getMax(); 
     }
 
 }

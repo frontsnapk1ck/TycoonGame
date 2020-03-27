@@ -14,20 +14,27 @@ import java.util.ArrayList;
 public class BuildingFactory {
 	
 	
-	private List<Building> buildings;
+    private List<Building> stockBuildings;
+    private List<Building> userBuildings;
     private List<BuildingType> buildingTypes; 
     private List<StoreManager> sMans;
 
     public BuildingFactory ()
     {
-        this.buildings = new ArrayList<Building>();
+        this.stockBuildings = new ArrayList<Building>();
+        this.userBuildings  = new ArrayList<Building>();
         this.buildingTypes = new ArrayList<BuildingType>(); 
         this.sMans = new ArrayList<StoreManager>();
     }
 
-    public List<Building> getBuildings ()
+    public List<Building> getUserBuildings ()
     {
-        return this.buildings;
+        return this.userBuildings;
+    }
+
+    public List<Building> getStockBuildings ()
+    {
+        return this.stockBuildings;
     }
 
     public List<BuildingType> getTypes()
@@ -35,21 +42,26 @@ public class BuildingFactory {
         return this.buildingTypes;
     }
 
-    public void load ( String filename )
+    public List<StoreManager> getSMans ()
+    {
+        return this.sMans;
+    }
+
+    public void loadStock (String filename)
     {
         List<String> buildingData = FileReader.readTextFile(filename);
-        this.loadBuildings ( buildingData );
+        loadStockBuildings(buildingData);
     }
 
-    private void loadBuildings(List<String> buildingData) 
+    private void loadStockBuildings(List<String> buildingData) 
     {
-        for (int i = 0; i < buildingData.size(); i++)
-            this.loadBuilding(buildingData.get(i));
+        for (String s : buildingData)
+            loadStockBuilding(s);
     }
 
-    private void loadBuilding(String string) 
+    private void loadStockBuilding(String s) 
     {
-        String[] slices = string.split("\\|");
+        String[] slices = s.split("\\|");
 
         int currentLevel = Integer.parseInt(slices[3]);
         int maxLevel = Integer.parseInt(slices[4]);  
@@ -58,11 +70,51 @@ public class BuildingFactory {
         int cost = Integer.parseInt( slices[1] );
         Level level = parseLevel ( slices[2] , currentLevel , maxLevel );
 
-        buildings.add(new buildings.Building(bT, cost, level));
+        Building b = new Building(bT, cost, level);
+        stockBuildings.add(b);
         buildingTypes.add(bT);
     }
 
-    public void loadStoreManagers (List<String> sManData)
+    public void loadUserBuildings(String filename)
+    {
+        List<String> buildingData = FileReader.readTextFile(filename);
+        if (buildingData.get(0) != "")
+            return;
+        this.loadUserBuildings ( buildingData );
+    }
+
+    private void loadUserBuildings(List<String> buildingData) 
+    {
+        for (String s : buildingData)
+            this.loadUserBuilding(s);
+    }
+
+    private void loadUserBuilding(String string) 
+    {
+        String[] slices = string.split("\\|");
+
+        int currentLevel = Integer.parseInt(slices[4]);
+        int maxLevel = Integer.parseInt(slices[5]);  
+        
+        BuildingType bT = BuildingType.parseBT( slices[0] );
+        double cost = Double.parseDouble( slices[2] );
+        Level level = parseLevel ( slices[3] , currentLevel , maxLevel );
+        String id = bT + "|" + slices[1];
+
+        Building b = new Building(bT, cost, level);
+        b.setSManID(id);
+        userBuildings.add(b);
+    }
+
+    public void loadSMans (String filename)
+    {
+        List<String> sManData = FileReader.readTextFile(filename);
+        if (sManData.get(0) != "")
+            return;
+        this.loadStoreManagers(sManData);
+    }
+
+    private void loadStoreManagers (List<String> sManData)
     {
         for (String sMan : sManData)
             loadStoreManager(sMan);
@@ -74,7 +126,7 @@ public class BuildingFactory {
 
         BuildingType bT = BuildingType.parseBT(slices[0]);
         String id = slices[0] + "|" + slices[1];
-        int baseUpkeepCost = Integer.parseInt(slices[2]);
+        double baseUpkeepCost = Double.parseDouble(slices[2]);
         int maxBuildings = Integer.parseInt(slices[3]);
         double multiplyer = Double.parseDouble(slices[4]);
 
@@ -84,7 +136,7 @@ public class BuildingFactory {
         storeMan.setMaxBuildings ( maxBuildings );
         storeMan.setMultiplier ( multiplyer );
         storeMan.getUpkeepCost();
-
+        this.sMans.add( storeMan );
     }
 
     private static Level parseLevel(String type, int current, int max)

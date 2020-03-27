@@ -5,17 +5,20 @@ import java.util.List;
 
 import buildings.Building;
 import buildings.BuildingType;
+import buildings.GrandManager;
 import buildings.StoreManager;
 
 public class Player {
 
 	/**{@link Account} for the player to hold loans and the current balance of the player*/
-	private Account account = new Account();
+	private Account account;
 	/**Manager for all the {@link Building}s this players owns*/
-	private buildings.GrandManager bManager = new buildings.GrandManager();
+	private GrandManager bManager;
 	
 	public void startGame ()
 	{
+		this.bManager = new GrandManager();
+		this.account = new Account();
 		this.account.addBal(1000);
 	}
 

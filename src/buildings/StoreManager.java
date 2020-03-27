@@ -1,6 +1,7 @@
 package buildings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * a store manager handles a set amount of stores at a time. the defalut is 10, but that can be upgraded down the line
@@ -59,10 +60,27 @@ public class StoreManager {
 		this.id = id;
 	}
 
+	public String getID()
+	{
+		return this.id;
+	}
+
 	public void add(Building b)
 	{
 		b.setSManID(this.id);
 		this.buildings.add(b);
+	}
+
+	public void add(List<Building> bs)
+	{
+		if (bs != null)
+		{
+			for (Building b : bs)
+			{
+				b.setSManID(this.id);
+				this.buildings.add(b);
+			}
+		}
 	}
 	
 	/**
@@ -245,7 +263,7 @@ public class StoreManager {
 
 	}
 
-	public void setBaseUpkeepCost(int baseUpkeepCost) 
+	public void setBaseUpkeepCost(double baseUpkeepCost) 
 	{
 		this.baseUpkeepCost = baseUpkeepCost;		
 	}
