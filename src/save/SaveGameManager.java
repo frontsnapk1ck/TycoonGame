@@ -3,7 +3,6 @@ package save;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +34,8 @@ public class SaveGameManager {
         return single;
     }
 
-    public HashMap<BuildingType, List<StoreManager>> getOwnedBuildings() {
+    public HashMap<BuildingType, List<StoreManager>> getOwnedBuildings() 
+    {
         BuildingFactory factory = new BuildingFactory();
         HashMap<BuildingType, List<StoreManager>> ownedBuilding = new HashMap<BuildingType, List<StoreManager>>();
 
@@ -81,8 +81,13 @@ public class SaveGameManager {
         List<Building> mathcingBuildings = new ArrayList<Building>();
         for (Building b : buildings)
         {
+            System.err.println(b.getSManID());
+            System.err.println(sMan.getID());
             if (b.getSManID().equals(sMan.getID()))
+            {
                 mathcingBuildings.add(b);
+                System.out.println("Match");
+            }
         }
         return mathcingBuildings;
     }

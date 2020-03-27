@@ -41,8 +41,9 @@ public class Menu {
 	public void end() 
 	{
 		System.out.println("1\tSave Game");
-		System.out.println("2\tExit Without Saving");
-		System.out.println("3\tReset and Exit");
+		System.out.println("2\tSave and Exit");
+		System.out.println("3\tExit Without Saving");
+		System.out.println("4\tReset and Exit");
 		System.out.println("");
 		System.out.println("0\tBack");
 

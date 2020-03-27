@@ -8,10 +8,10 @@ package buildings;
 public class BuildingType {
 	
 	public static final BuildingType LEMONADE_STAND = new BuildingType( "Lemonade Stand" );
-	public static final BuildingType TWO = 		new BuildingType( "2" );
-	public static final BuildingType THREE = 	new BuildingType( "3" );
-	public static final BuildingType FOUR = 	new BuildingType( "4" );
-	public static final BuildingType FIVE = 	new BuildingType( "5" );
+	public static final BuildingType TWO = 		new BuildingType( "Type 2" );
+	public static final BuildingType THREE = 	new BuildingType( "Type 3" );
+	public static final BuildingType FOUR = 	new BuildingType( "Type 4" );
+	public static final BuildingType FIVE = 	new BuildingType( "Type 5" );
 	
 	private String id;
 	

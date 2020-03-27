@@ -82,9 +82,10 @@ public class StoreManager {
 			}
 		}
 	}
-	
+
 	/**
-	 * increases the max number of {@link Building}s this instance of {@link StoreManager} can hold
+	 * increases the max number of {@link Building}s this instance of
+	 * {@link StoreManager} can hold
 	 */
 	public void increaseMaxBuildings()
 	{
@@ -209,6 +210,7 @@ public class StoreManager {
 	 */
 	public int size() 
 	{
+		System.err.println(buildings.size());
 		return this.buildings.size();
 	}
 	/**
@@ -276,6 +278,12 @@ public class StoreManager {
 	public void setMultiplier(double multiplyer) 
 	{
 		this.multiplyer= multiplyer;
+	}
+
+	public void setUpgradeCount(int upgradeCount) 
+	{
+		this.upgradeCount = upgradeCount;
+		calculateUpkeep();
 	}
 
 }

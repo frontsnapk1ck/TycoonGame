@@ -78,7 +78,7 @@ public class BuildingFactory {
     public void loadUserBuildings(String filename)
     {
         List<String> buildingData = FileReader.readTextFile(filename);
-        if (buildingData.get(0) != "")
+        if (buildingData.get(0).equals(""))
             return;
         this.loadUserBuildings ( buildingData );
     }
@@ -109,7 +109,7 @@ public class BuildingFactory {
     public void loadSMans (String filename)
     {
         List<String> sManData = FileReader.readTextFile(filename);
-        if (sManData.get(0) != "")
+        if (sManData.get(0).equals(""))
             return;
         this.loadStoreManagers(sManData);
     }
@@ -127,15 +127,16 @@ public class BuildingFactory {
         BuildingType bT = BuildingType.parseBT(slices[0]);
         String id = slices[0] + "|" + slices[1];
         double baseUpkeepCost = Double.parseDouble(slices[2]);
-        int maxBuildings = Integer.parseInt(slices[3]);
-        double multiplyer = Double.parseDouble(slices[4]);
+        int upgradeCount = Integer.parseInt(slices[3]);
+        int maxBuildings = Integer.parseInt(slices[4]);
+        double multiplyer = Double.parseDouble(slices[5]);
 
         StoreManager storeMan = new StoreManager(bT);
         storeMan.setID( id );
         storeMan.setBaseUpkeepCost( baseUpkeepCost );
+        storeMan.setUpgradeCount(upgradeCount);
         storeMan.setMaxBuildings ( maxBuildings );
         storeMan.setMultiplier ( multiplyer );
-        storeMan.getUpkeepCost();
         this.sMans.add( storeMan );
     }
 

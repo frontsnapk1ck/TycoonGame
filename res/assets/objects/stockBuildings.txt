@@ -1,5 +1,5 @@
 Lemonade Stand|100|Low|1|5
-2|100|Mid|1|5
-3|100|Mid|1|6
-4|100|High|1|5
-5|100|High|1|6
+Type 2|100|Mid|1|5
+Type 3|100|Mid|1|6
+Type 4|100|High|1|5
+Type 5|100|High|1|6

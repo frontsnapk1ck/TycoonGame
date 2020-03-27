@@ -26,7 +26,6 @@ public class GrandManager {
 		this.buildingTypes = factory.getTypes();
 
 		this.ownedBuildings = laoder.getOwnedBuildings();
-		System.err.println("yes");
 	}
 	
 	/**

@@ -122,8 +122,9 @@ public class Game extends GameFramework {
 	{
 		final int BACK = 0;
 		final int SAVE = 1;
-		final int DONT_SAVE = 2;
-		final int RESET = 3;
+		final int SAVE_EXIT = 2;
+		final int DONT_SAVE = 3;
+		final int RESET = 4;
 
 		menu.end();
 		List<Integer> intList = numbersXThruX(0,3);
@@ -133,6 +134,12 @@ public class Game extends GameFramework {
 			return;
 		else if (in == SAVE)
 			player.save();
+		else if (in == SAVE_EXIT)
+		{
+			player.save();
+			this.playing = false;
+			game.destroy();
+		}
 		else if (in == DONT_SAVE)
 		{
 			this.playing = false;
