@@ -25,7 +25,6 @@ public class Pause extends Screen {
         frame.setVisible(true);
     }
 
-    @Override
     protected void create() 
     {
         makeBackSplash();

@@ -3,7 +3,6 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,24 +11,10 @@ public abstract class Screen{
 
     private JFrame frame;
 
-    protected abstract void create();
-    
     public Screen (JFrame frame)
     {
         if (this.frame == null)
             this.frame = frame;
-    }
-
-    protected void setVisible( List<JPanel> panels , boolean visiblity ) 
-    {
-        for (JPanel panel : panels )
-            panel.setVisible(true);
-    }
-
-    protected void addToFrame(JFrame frame, List<JPanel> panels) 
-    {
-        for (JPanel panel : panels)
-            frame.add(panel);
     }
 
     public JPanel makeJPanel ( Point p , Dimension d )

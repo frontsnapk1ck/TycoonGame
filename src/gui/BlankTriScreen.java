@@ -23,43 +23,36 @@ public abstract class BlankTriScreen extends Screen {
     {
         super(frame);
         this.panels = new ArrayList<JPanel>();
-        this.create();
-        this.addToFrame (frame , this.panels);
     }
 
-    @Override
-    protected void create() 
-    {
-        panels.add( makeTitleBox());
-        panels.add( makeButtonBox());
-        panels.add( makeInformationBox());
-    }
-
-    protected JPanel makeInformationBox() 
+    protected JPanel configureInformationBox(JPanel panel) 
     {
         Point p = screenPersentageLocation(.05, .2);
         Dimension d = screenPersentageDimensions(.6 , .7);
-        JPanel panel =  makeJPanel(p, d);
+        panel.setSize(d);
+        panel.setLocation(p);
         panel.setBackground(new Color( 82 , 234 , 12));
         return panel;
     }
 
-    protected JPanel makeButtonBox() 
+    protected JPanel configureButtonBox(JPanel panel) 
     {
         Point p = screenPersentageLocation(.7, .2);
         Dimension d = screenPersentageDimensions(.25 , .7);
-        JPanel panel =  makeJPanel(p, d);
+        panel.setSize(d);
+        panel.setLocation(p);
         panel.setBackground(new Color( 45 , 64 , 76));
         return panel;    
     }
 
-    protected JPanel makeTitleBox() 
+    protected JPanel configureTitleBox(JPanel panel) 
     {
         Point p = screenPersentageLocation(.05, .05);
         Dimension d = screenPersentageDimensions( .9 , .1);
-        JPanel panel =  makeJPanel(p, d);
+        panel.setSize(d);
+        panel.setLocation(p);
         panel.setBackground(new Color( 234 , 121 , 34));
         return panel;    
     }
-    
+
 }

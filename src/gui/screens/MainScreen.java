@@ -2,6 +2,7 @@ package gui.screens;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import gui.BlankTriScreen;
 
@@ -18,25 +19,31 @@ public class MainScreen extends BlankTriScreen {
     @Override
     protected void setInformationBox() 
     {
+        JPanel panel = new JPanel();
         JLabel label = new JLabel("Information");
         label.add(new JLabel("this is some pretty random text3"));
-        this.panels.get(2).add(label);
+        panel.add(label);
+        super.configureInformationBox(panel);
     }
 
     @Override
     protected void setButtonBox() 
     {
+        JPanel panel = new JPanel();
         JLabel label = new JLabel("Buttons");
         label.add(new JLabel("this is some pretty random text2"));
-        this.panels.get(1).add(label);
+        panel.add(label);
+        super.configureButtonBox(panel);
     }
 
     @Override
     protected void setTitleBox() 
     {
+        JPanel panel = new JPanel();
         JLabel label = new JLabel("Tycoon Game");
         label.add(new JLabel("this is some pretty random text1"));
-        this.panels.get(0).add(label);
+        panel.add(label);
+        super.configureTitleBox(panel);
     }
 
 
