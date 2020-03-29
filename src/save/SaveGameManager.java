@@ -8,6 +8,8 @@ import java.util.List;
 
 import buildings.StoreManager;
 import factory.BuildingFactory;
+import factory.LoanFactory;
+import player.Loan;
 import buildings.Building;
 import buildings.BuildingType;
 
@@ -24,6 +26,18 @@ public class SaveGameManager {
             e.printStackTrace();
         }
     }
+
+    public void reset(String filename) 
+    {
+        try {
+            FileWriter writer = new FileWriter(filename);
+            writer.write("");
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("SaveGameManager: Resteting save at file " + filename + " -FAILED\n\n");
+            e.printStackTrace();
+        } 
+	}
 
     private String condense(List<String> data) {
         String single = "";
@@ -91,5 +105,16 @@ public class SaveGameManager {
         }
         return mathcingBuildings;
     }
+
+    public List<Loan> getOwnedLoans() 
+    {
+        LoanFactory factory = new LoanFactory();
+        List<Loan> loans= new ArrayList<Loan>();
+
+        factory.loadOwned ("res\\assets\\objects\\ownedLoans.txt");
+        if (factory.getLoans() != null && factory.getLoans().size() != 0)
+            loans.addAll(factory.getLoans());
+        return loans;
+	}
 
 }

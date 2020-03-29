@@ -5,6 +5,7 @@ import java.util.List;
 
 import buildings.Building;
 import buildings.StoreManager;
+import player.Loan;
 import player.Player;
 
 /**
@@ -173,6 +174,26 @@ public class DisplayFramework {
 	public String viewStoreManager( Player p , int classNum, int in ) 
 	{
 		return p.getSMan(classNum , in).toString();
+	}
+
+	public List<String> getLoans(Player player) 
+	{
+		List<Loan> loans = player.getLoans();
+		List<String> list = new ArrayList<String>();
+		
+		if (loans == null || loans.size() == 0)
+		{
+			list.add( "empty" );
+			return list;
+		} 
+
+		for (Loan loan : loans)
+			list.add(loan.toString());
+		return list;
+	}
+
+	public List<String> getAvailbleLoans(Player player) {
+		return null;
 	}
 
 }

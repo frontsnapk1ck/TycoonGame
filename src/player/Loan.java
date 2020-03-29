@@ -23,16 +23,15 @@ public class Loan {
 	{
 		this.initAmount = amount;
 		this.time = time;
-		this.adjustedAmount = calcualteCurrent(amount , time , rate);
+		this.adjustedAmount = calcualteAdjusted( );
 		this.current = this.adjustedAmount;
 	}
 
-	private double calcualteCurrent(double amount, int time, double rate) 
+	private double calcualteAdjusted( ) 
 	{
-		rate /= 100;
 		double power = time;
 		double fraction = rate;
-		double adjustedAmount = amount * (1 + fraction);
+		double adjustedAmount = initAmount * (1 + fraction);
 		adjustedAmount = Math.pow(adjustedAmount, power);
 		return adjustedAmount;
 	}
@@ -64,4 +63,35 @@ public class Loan {
 		return amount;
 	}
 
+	@Override
+	public String toString() 
+	{
+		String out = 	"Initial Amount: " + this.initAmount + 
+						"\tAmount remaining: " + this.current + 
+						"\tCost Per Day: " + this.getAmountPerDay();
+		return out;						
+	}
+
+	public String getSaveData ()
+	{
+		String out = 	"" + this.initAmount + "|" +
+						this.time + "|" + 
+						this.rate + "|" + 
+						this.current;
+		return out;
+						
+	}
+
+	public void setCurrent(double current) 
+	{
+		this.current = current;
+	}
+
+	@Override
+	protected Loan clone()
+	{
+		Loan l = new Loan(this.initAmount, this.time, this.rate);
+		l.setCurrent(this.current);
+		return l;
+	}
 }

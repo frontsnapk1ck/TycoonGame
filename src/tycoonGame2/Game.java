@@ -3,9 +3,6 @@ package tycoonGame2;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.GUI;
-
-
 /**
  * @author	S38392
  *
@@ -19,8 +16,6 @@ public class Game extends GameFramework {
 
 	public static void main(String[] args) 
 	{
-		GUI gui = new GUI();
-		gui.setFramePause();
 		// game = getInstance(game);
 		// game.setupGame();
 		// game.start();
@@ -51,7 +46,7 @@ public class Game extends GameFramework {
 
 	private void mainMenu() 
 	{
-		ArrayList<Integer> intList = numbersXThruX( 0 , 3 );
+		ArrayList<Integer> intList = numbersXThruX( 0 , 4 );
 		intList.add(9);
 
 		menu.main();
@@ -69,6 +64,7 @@ public class Game extends GameFramework {
 		final int BUY_BUILDING = 1;
 		final int SHOW_STORE_MANAGERS = 2;
 		final int BUY_STORE_MANAGER = 3;
+		final int MANAGE_LOANS = 4;
 		final int NEW_DAY = 9;
 		final int PAUSE = 0;
 
@@ -109,6 +105,10 @@ public class Game extends GameFramework {
 
 			buyStoreManager(classNum);
 		}
+		else if ( in == MANAGE_LOANS )
+		{
+			manageLoans();
+		}
 		else if ( in == NEW_DAY)
 		{
 			nextDay();
@@ -120,6 +120,52 @@ public class Game extends GameFramework {
 		}
 		input.next();
 		
+	}
+
+	private void manageLoans() 
+	{
+		final int BACK = 0;
+		final int BUY_LOAN = 1;
+		final int VIEW = 2;
+
+		menu.manageLoans();
+
+		ArrayList<Integer> intList = numbersXThruX( 0 , 2 );
+		int in = input.getUserInt( "> "  , intList );
+
+		if ( in == BACK )
+			return;
+		else if ( in == BUY_LOAN)
+			buyLoan();
+		else if ( in == VIEW)
+			viewLoans();
+	}
+
+	private void viewLoans() 
+	{
+		List<String> list = dispFrm.getLoans( this.player );
+		menu.out(list);
+		menu.line ();
+		menu.out ("0\tback");
+
+		input.getUserInt( "> " , 0 );
+	}
+
+	private void buyLoan() 
+	{
+		final int BACK = 0;
+
+		menu.out( dispFrm.getAvailbleLoans (player ));
+		menu.line();
+		menu.out("0\tback");
+		
+		List<Integer> intList = numbersXThruX(0 , player.getNumAvalibleLoans() );
+		int in = input.getUserInt("> " , intList); 
+
+		if (in == BACK)
+			return;
+		in --;
+		player.takeLoan ( in );
 	}
 
 	private void pause() 
@@ -188,8 +234,7 @@ public class Game extends GameFramework {
 		final int BACK = 0;
 
 		List<String> list  = dispFrm.getSMansWithStats( this.player , classNum );
-		List<Integer> intList = numbers1ThruX(list.size());
-		intList.add(0);
+		List<Integer> intList = numbersXThruX(0 , list.size());
 		menu.out(list);
 		menu.out("0\tback");
 		menu.line();

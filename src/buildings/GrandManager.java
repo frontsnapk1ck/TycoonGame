@@ -359,10 +359,8 @@ public class GrandManager {
 	public void resetSave() 
 	{
 		SaveGameManager reset = new SaveGameManager();
-		List<String> list = new ArrayList<String>();
-		list.add("");
-		reset.save( list, "res\\assets\\saves\\buildings\\storeManagers"  );
-		reset.save( list, "res\\assets\\saves\\buildings\\ownedBuildings" );
+		reset.reset( "res\\assets\\saves\\buildings\\storeManagers"  );
+		reset.reset( "res\\assets\\saves\\buildings\\ownedBuildings" );
 	}
 
 

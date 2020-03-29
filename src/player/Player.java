@@ -215,5 +215,20 @@ public class Player {
 		bManager.resetSave();
 		account.resetSave();
 	}
+
+	public List<Loan> getLoans() 
+	{
+		return this.account.getLoans();
+	}
+
+	public int getNumAvalibleLoans() 
+	{
+		return account.getNumAvalibleLoans();
+	}
+
+	public void takeLoan(int in) 
+	{
+		account.takeLoan ( in );
+	}
 	
 }
