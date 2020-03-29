@@ -7,6 +7,7 @@ import buildings.Building;
 import buildings.BuildingType;
 import buildings.GrandManager;
 import buildings.StoreManager;
+import records.Log;
 
 public class Player {
 
@@ -19,7 +20,6 @@ public class Player {
 	{
 		this.bManager = new GrandManager();
 		this.account = new Account();
-		this.account.addBal(1000);
 	}
 
 	/**
@@ -35,9 +35,9 @@ public class Player {
 	 * 
 	 * @param increase the amount of money to add to this {@link Player}'s account
 	 */
-	public void addBalance(double increase) 
+	public void addBalance(double increase , String message) 
 	{
-		this.account.addBal(increase);
+		this.account.addBal(increase , message);
 	}
 
 	/**
@@ -134,9 +134,9 @@ public class Player {
 		return account.validWithdraw(withBal);
 	}
 	
-	public void withdraw (double withBal)
+	public void withdraw (double withBal , String message)
 	{
-		this.account.subtractBal(withBal);
+		this.account.subtractBal(withBal , message);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class Player {
 		{
 			double upgradeCost = bManager.getBuildingUpgradeCost(classNum, in, building);
 			bManager.addUpgrade(bManager.getBuilding(classNum, in, building)	);
-			withdraw(upgradeCost);
+			withdraw(upgradeCost, "upgraded building");
 		}
 		else
 		{
@@ -223,12 +223,33 @@ public class Player {
 
 	public int getNumAvalibleLoans() 
 	{
-		return account.getNumAvalibleLoans();
+		List<Loan> loans = getAvalibleLoans();
+		if (loans == null)
+			return 0;
+		return loans.size();
 	}
 
 	public void takeLoan(int in) 
 	{
 		account.takeLoan ( in );
+	}
+
+	public List<Log> getLogs() 
+	{
+		return this.account.getLogs();
+	}
+
+	public List<Loan> getAvalibleLoans() 
+	{
+		List<Loan> avaliableLoans = new ArrayList<Loan>();
+		if (account.getMaxLoans() == account.getNumLoans())
+			return avaliableLoans;
+		return this.account.getStockLoans();
+	}
+
+	public int getLastDay() 
+	{
+		return this.account.getLastDay();
 	}
 	
 }

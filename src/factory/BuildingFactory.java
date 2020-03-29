@@ -78,7 +78,7 @@ public class BuildingFactory {
     public void loadUserBuildings(String filename)
     {
         List<String> buildingData = FileReader.readTextFile(filename);
-        if (buildingData.get(0).equals(""))
+        if (buildingData.size() == 0)
             return;
         this.loadUserBuildings ( buildingData );
     }
@@ -109,7 +109,7 @@ public class BuildingFactory {
     public void loadSMans (String filename)
     {
         List<String> sManData = FileReader.readTextFile(filename);
-        if (sManData.get(0).equals(""))
+        if (sManData == null || sManData.size() == 0)
             return;
         this.loadStoreManagers(sManData);
     }

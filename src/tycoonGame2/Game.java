@@ -16,14 +16,14 @@ public class Game extends GameFramework {
 
 	public static void main(String[] args) 
 	{
-		// game = getInstance(game);
-		// game.setupGame();
-		// game.start();
+		game = getInstance(game);
+		game.setupGame();
+		game.start();
 	}
 	
 	private void start() 
 	{
-		day = 1;
+		day = player.getLastDay();
 		game.loop();
 		
 	}
@@ -75,7 +75,7 @@ public class Game extends GameFramework {
 			menu.out( "0\tback");
 			menu.line();
 
-			ArrayList<Integer> intList = numbers1ThruX(this.player.getNumTypes());
+			ArrayList<Integer> intList = numbersXThruX( 0 , this.player.getNumTypes() );
 			int buildingNum = input.getUserInt( "> " , intList);
 
 			buyBuilding(buildingNum);
@@ -126,19 +126,33 @@ public class Game extends GameFramework {
 	{
 		final int BACK = 0;
 		final int BUY_LOAN = 1;
-		final int VIEW = 2;
+		final int VIEW_LAONS = 2;
+		final int VIEW_LOG = 3;
+
 
 		menu.manageLoans();
 
-		ArrayList<Integer> intList = numbersXThruX( 0 , 2 );
+		ArrayList<Integer> intList = numbersXThruX( 0 , 3 );
 		int in = input.getUserInt( "> "  , intList );
 
 		if ( in == BACK )
 			return;
 		else if ( in == BUY_LOAN)
 			buyLoan();
-		else if ( in == VIEW)
+		else if ( in == VIEW_LAONS)
 			viewLoans();
+		else if ( in == VIEW_LOG )
+			viewLog();
+	}
+
+	private void viewLog() 
+	{
+		List<String> list = dispFrm.getLogs( this.player );
+		menu.out(list);
+		menu.line ();
+		menu.out ("0\tback");
+
+		input.getUserInt( "> " , 0 );
 	}
 
 	private void viewLoans() 
@@ -177,7 +191,7 @@ public class Game extends GameFramework {
 		final int RESET = 4;
 
 		menu.end();
-		List<Integer> intList = numbersXThruX(0,3);
+		List<Integer> intList = numbersXThruX(0,4);
 		int in = input.getUserInt("> " , intList);
 
 		if (in == BACK)
@@ -215,7 +229,7 @@ public class Game extends GameFramework {
 			return;	
 		}
 		classNum --;
-		player.withdraw(player.getSManCost());
+		player.withdraw(player.getSManCost() , "bought Store Manager");
 		player.addSMan(classNum);
 	}
 
@@ -339,7 +353,7 @@ public class Game extends GameFramework {
 			this.player.getSMan(classNum, index).increaseMaxBuildings();
 		else if (upgrade == 2)
 			this.player.getSMan(classNum, index).increaseMultiplier();
-		this.player.withdraw(cost);
+		this.player.withdraw(cost , "Upgraded Store Manager");
 		
 
 	}
@@ -355,7 +369,7 @@ public class Game extends GameFramework {
 							player.canAddBuilding(in);			
 		if (validBuy)
 		{
-			player.withdraw(player.getCost(in));
+			player.withdraw(player.getCost(in) , "bought Building");
 			addBuilding (in);
 		}
 		else if (!player.validWithdraw(player.getCost(in)))
@@ -369,7 +383,7 @@ public class Game extends GameFramework {
 	private void nextDay() 
 	{
 		day ++;
-		this.player.addBalance (this.player.getIncrease());
+		this.player.addBalance (this.player.getIncrease() , "Next Day");
 	}
 
 	private void addBuilding(int buildingNum) 

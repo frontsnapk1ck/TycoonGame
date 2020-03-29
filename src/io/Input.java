@@ -423,6 +423,12 @@ public class Input {
 	 */
 	private static boolean validNum(String temp) 
 	{
+		 if (!temp.equals(""))
+			return isNumber(temp);
+		return false;
+	}
+	private static boolean isNumber (String temp)
+	{
 		try {
 			Integer.parseInt(temp);
 		} catch (NumberFormatException e) {

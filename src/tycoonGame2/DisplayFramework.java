@@ -7,6 +7,7 @@ import buildings.Building;
 import buildings.StoreManager;
 import player.Loan;
 import player.Player;
+import records.Log;
 
 /**
  * collection of convertions from the players lists to lists of strings that can
@@ -192,8 +193,31 @@ public class DisplayFramework {
 		return list;
 	}
 
-	public List<String> getAvailbleLoans(Player player) {
-		return null;
+	public List<String> getAvailbleLoans(Player player) 
+	{
+		List<Loan> loans = player.getAvalibleLoans();
+		List<String> list = new ArrayList<String>();
+
+		if (loans == null || loans.size() == 0)
+		{
+			list.add( "none" );
+			return list;
+		} 
+
+		for (Loan loan : loans)
+			list.add(loan.toString());
+		return list;
+
+	}
+
+	public List<String> getLogs(Player player) 
+	{
+		List<Log> logs = player.getLogs();
+		List<String> list = new ArrayList<String>(); 
+
+		for (Log log : logs)
+			list.add(log.toString());
+		return list;
 	}
 
 }

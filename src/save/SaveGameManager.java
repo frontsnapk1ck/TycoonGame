@@ -9,7 +9,11 @@ import java.util.List;
 import buildings.StoreManager;
 import factory.BuildingFactory;
 import factory.LoanFactory;
+import factory.LogFactory;
 import player.Loan;
+import records.Date;
+import records.Log;
+import records.Time;
 import buildings.Building;
 import buildings.BuildingType;
 
@@ -24,6 +28,20 @@ public class SaveGameManager {
         } catch (IOException e) {
             System.err.println("SaveGameManager: Saving game to file " + filename + " -FAILED\n\n");
             e.printStackTrace();
+        }
+    }
+
+    public void resetLog ()
+    {
+        String filename = "res\\assets\\saves\\account\\account.txt";
+        try {
+            FileWriter writer = new  FileWriter(filename);
+            Log log = new Log(new Date(1), new Time(), 1000.0, 0.0, "Initial Balance");
+            writer.write(log.getSaveData());
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("SaveGameManager: Resteting save at file " + filename + " -FAILED\n\n");
+            e.printStackTrace();        
         }
     }
 
@@ -111,10 +129,21 @@ public class SaveGameManager {
         LoanFactory factory = new LoanFactory();
         List<Loan> loans= new ArrayList<Loan>();
 
-        factory.loadOwned ("res\\assets\\objects\\ownedLoans.txt");
+        factory.loadOwned ("res\\assets\\saves\\account\\ownedLoans.txt");
         if (factory.getLoans() != null && factory.getLoans().size() != 0)
             loans.addAll(factory.getLoans());
         return loans;
+	}
+
+    public List<Log> getLogs() 
+    {
+        LogFactory factory = new LogFactory();
+        List<Log> logs = new ArrayList<Log>();
+
+        factory.load("res\\assets\\saves\\account\\account.txt");
+        if (factory.getLogs() != null && factory.getLogs().size() != 0)
+            logs.addAll(factory.getLogs());
+        return logs;
 	}
 
 }

@@ -44,7 +44,7 @@ public class LoanFactory {
 
     private void loadOwnedLoans(List<String> ownedData) 
     {
-        if (ownedData.size() == 0)
+        if (ownedData == null || ownedData.size() == 0)
             return;
         for (String loan : ownedData)
             loadOwnedLoan(loan);

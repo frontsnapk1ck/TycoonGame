@@ -9,7 +9,7 @@ public class Menu {
 		System.out.println("1\tBuy Building");
 		System.out.println("2\tShow Store Managers");
 		System.out.println("3\tBuy Store Manager");
-		System.out.println("4\tManage Laons");
+		System.out.println("4\tManage Account");
 		System.out.println("");
 		System.out.println("9\tNew day");
 		System.out.println("0\tpause");
@@ -43,6 +43,7 @@ public class Menu {
 	{
 		System.out.println("1\tTake out Loan");
 		System.out.println("2\tView Active Loans");
+		System.out.println("3\tView Log");
 		System.out.println("");
 		System.out.println("0\t");
 	}
