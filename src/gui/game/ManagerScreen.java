@@ -2,7 +2,6 @@ package gui.game;
 
 import gui.framework.ScreenFramework;
 
-
 /**
  * 
  */

@@ -6,10 +6,9 @@ import java.awt.Font;
 import gui.framework.ScreenFramework;
 
 /**
- *  Class represents the main screen of the game with
- *  the three part layout consistenting of a 
- *  banner label across the top and two seperate
- *  screens split down middle.
+ * Class represents the main screen of the game with the three part layout
+ * consistenting of a banner label across the top and two seperate screens split
+ * down middle.
  */
 public class MainScreen extends ScreenFramework {
 

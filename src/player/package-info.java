@@ -1,7 +1,0 @@
-package player;
-
-/*
-*@author Shawn;
-*
-*
-**/
