@@ -1,5 +1,6 @@
 package tycoonGame2;
 
+import gui.Manager;
 import io.Input;
 import player.Player;
 
@@ -14,6 +15,8 @@ abstract class GameFramework{
 	protected Input input;
 	/**the conversion from objects to strings */
 	protected DisplayFramework dispFrm;
+	/**the manager for the displays in the game */
+	protected Manager guiManager;
 
 
 	protected void setupGame() 
@@ -22,6 +25,7 @@ abstract class GameFramework{
 		input = new Input();
 		menu = new Menu();
 		dispFrm = new DisplayFramework(); 
+		guiManager = new Manager();
 		
 		player.startGame();
 	}
